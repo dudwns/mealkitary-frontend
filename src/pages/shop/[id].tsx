@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { totalPriceState, totalCountState } from "@/lib/recoilState";
+import Slider from "@/components/slider";
 
 export interface MenuItem {
   id: number;
@@ -43,7 +44,7 @@ export default function Shop() {
             onClick={() => router.push("/reservation")}
           >
             <svg
-              className="w-6 h-6 text-white fixed"
+              className="w-6 h-6 text-white fixed z-10"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -58,16 +59,10 @@ export default function Shop() {
             </svg>
           </button>
           {shopData?.images ? (
-            <div className="w-full h-full relative">
-              <Image src={shopData.images[0]} layout="fill" alt="지점 이미지" />
-            </div>
+            <Slider images={shopData?.images} />
           ) : (
             <div>상품 이미지가 없습니다.</div>
           )}
-
-          <button className="cursor-default absolute bottom-4 right-4 bg-blue-500 text-white text-sm px-6 py-1 rounded-full">
-            1/2
-          </button>
         </div>
         <div className="bg-white px-6 py-4  border-b-2 border-gray-300 shadow-md ">
           <div className="text-2xl font-extrabold mb-3">{shopData?.title}</div>
