@@ -40,7 +40,7 @@ export default function Product() {
         <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
           <button className="absolute top-4 left-4 z-10" onClick={() => router.back()}>
             <svg
-              className="w-6 h-6 text-white fixed"
+              className="w-6 h-6 text-white fixed z-10"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
