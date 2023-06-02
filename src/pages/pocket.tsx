@@ -13,9 +13,7 @@ export default function Pocket() {
   return (
     <Layout>
       <Nav>
-        <div className="relative w-full flex flex-row items-center">
-          <Header title="장바구니" />
-        </div>
+        <Header title="장바구니" />
       </Nav>
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white">
         <h3>예약한 메뉴</h3>
@@ -51,7 +49,7 @@ export default function Pocket() {
           <span className="text-blue-700">⬇</span>
         </div>
       </div>
-      <TabBar text="결제하기" onClick={() => router.push("/payment")} />
+      <TabBar text="예약하기" onClick={() => router.push("/reservationDate")} />
     </Layout>
   );
 }
