@@ -2,13 +2,31 @@ import Header from "@/components/header";
 import Layout from "@/components/layout";
 import Nav from "@/components/nav";
 import TabBar from "@/components/tabBar";
-import { totalPriceState } from "@/lib/recoilState";
+import { reservationMenuName, totalPriceState } from "@/lib/recoilState";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
+import { MenuItem } from "./order";
+import Shop from "./shop/[id]";
 
-export default function Pocket() {
+interface shop {
+  id: number;
+  title: string;
+  images: string[] | null;
+  description: string;
+  menus: MenuItem[];
+}
+
+export default function Pocket({
+  id,
+  name,
+  image,
+  price,
+  description,
+}: MenuItem) {
   const router = useRouter();
+
+  const [menuName, setMenuName] = useRecoilState(reservationMenuName);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   return (
     <Layout>
@@ -18,17 +36,11 @@ export default function Pocket() {
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white">
         <h3>예약한 메뉴</h3>
         <ul>
-          {[1, 1, 1, 1, 1].map((data, index) => (
+          {[1, 1].map((data, index) => (
             <li key={index}>
-              <div className="flex relative w-full">
-                <label className="w-full py-4" htmlFor={String()}>
-                  <input
-                    className="mr-4 text-blue-500 focus:ring-0"
-                    type="checkbox"
-                  />
-                </label>
-                {/* <div className="absolute right-0"> +1000원</div> */}
-              </div>
+              <div>{name}</div>
+              <div>{image}</div>
+              <div>{price}</div>
             </li>
           ))}
         </ul>

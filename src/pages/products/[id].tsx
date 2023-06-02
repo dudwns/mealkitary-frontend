@@ -4,7 +4,13 @@ import { useRouter } from "next/router";
 import shop from "@/data/shop.json";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { totalPriceState, totalCountState } from "@/lib/recoilState";
+import {
+  totalPriceState,
+  totalCountState,
+  reservationMenuName,
+  reservationDescription,
+  reservationPrice,
+} from "@/lib/recoilState";
 import { useRecoilState } from "recoil";
 
 interface OptionsProp {
@@ -26,6 +32,12 @@ export default function Product() {
   const [menuData, setMenuData] = useState<MenuItem>();
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [totalCount, setTotalCount] = useRecoilState(totalCountState);
+
+  const [menuName, setMenuName] = useRecoilState(reservationMenuName);
+  const [description, setDescription] = useRecoilState(reservationDescription);
+  const [reservationprice, setReservationprice] =
+    useRecoilState(reservationPrice);
+
   const [menuCount, setMenuCount] = useState(1);
   const [price, setPrice] = useState(0);
 
@@ -38,7 +50,10 @@ export default function Product() {
     <Layout>
       <div className="pb-20">
         <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
-          <button className="absolute top-4 left-4 z-10" onClick={() => router.back()}>
+          <button
+            className="absolute top-4 left-4 z-10"
+            onClick={() => router.back()}
+          >
             <svg
               className="w-6 h-6 text-white fixed z-10"
               fill="none"
@@ -73,7 +88,10 @@ export default function Product() {
               <li key={index}>
                 <div className="flex relative w-full">
                   <label className="w-full py-4" htmlFor={String(data?.id)}>
-                    <input className="mr-4 text-blue-500 focus:ring-0" type="checkbox" />
+                    <input
+                      className="mr-4 text-blue-500 focus:ring-0"
+                      type="checkbox"
+                    />
                     {data?.option}
                   </label>
                   {/* <div className="absolute right-0"> +1000원</div> */}
@@ -84,12 +102,16 @@ export default function Product() {
         </div>
 
         <div className="bg-white px-6 py-4 mt-2 border-t-2 shadow-md flex items-center justify-between">
-          <div className="text-2xl font-extrabold mb-3 flex items-center">수량</div>
+          <div className="text-2xl font-extrabold mb-3 flex items-center">
+            수량
+          </div>
           <div className="flex space-x-6 border border-gray-200  px-4 py-1">
             <button
               onClick={() => {
                 setMenuCount((prev) => (prev > 1 ? prev - 1 : 1));
-                setPrice((prev) => (menuCount > 1 ? prev - menuData?.price! : menuData?.price!));
+                setPrice((prev) =>
+                  menuCount > 1 ? prev - menuData?.price! : menuData?.price!
+                );
               }}
             >
               -
@@ -110,6 +132,7 @@ export default function Product() {
           onClick={() => {
             setTotalPrice((prev) => prev + price);
             setTotalCount((prev) => prev + menuCount);
+            setMenuName((prev) => prev + menuData?.name);
             router.back();
           }}
         />
