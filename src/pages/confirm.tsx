@@ -4,7 +4,7 @@ import Nav from "@/components/nav";
 import Header from "@/components/header";
 import TabBar from "@/components/tabBar";
 
-export default function Payment() {
+export default function Confirm() {
   const router = useRouter();
 
   return (
