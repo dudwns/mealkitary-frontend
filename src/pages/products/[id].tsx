@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import shop from "@/data/shop.json";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { totalPriceState, totalCountState, reserveInfoState } from "@/lib/recoilState";
+import { totalPriceState, totalCountState, reserveInfoState } from "@/libs/recoilState";
 import { useRecoilState } from "recoil";
 
 interface OptionsProp {
@@ -40,8 +40,19 @@ export default function Product() {
       <div className="pb-20">
         <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
           <button className="absolute top-4 left-4 z-10" onClick={() => router.back()}>
-            <svg className="w-6 h-6 text-white fixed z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+            <svg
+              className="w-6 h-6 text-white fixed z-10"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
             </svg>
           </button>
           {menuData?.image ? (
@@ -100,7 +111,17 @@ export default function Product() {
           onClick={() => {
             setTotalPrice((prev) => prev + price);
             setTotalCount((prev) => prev + menuCount);
-            setReserveInfo((prev) => [...prev, { id: menuData!.id, name: menuData?.name!, price, count: menuCount, image: menuData?.image! }]);
+            setReserveInfo((prev) => [
+              ...prev,
+              {
+                id: menuData?.id!,
+                name: menuData?.name!,
+                price: menuData?.price!,
+                totalPrice: price,
+                count: menuCount,
+                image: menuData?.image!,
+              },
+            ]);
             console.log(reserveInfo);
             router.back();
           }}
