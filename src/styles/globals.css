@@ -14,3 +14,8 @@ a {
 html {
   @apply bg-gray-200;
 }
+
+.date-custom-input,
+.time-custom-input {
+  @apply cursor-pointer w-full border border-blue-500 rounded-md text-center text-base px-2 py-1 outline-none placeholder:text-black;
+}

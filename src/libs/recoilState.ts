@@ -4,6 +4,7 @@ interface ReserveProp {
   id: number;
   name: string;
   price: number;
+  totalPrice: number;
   count: number;
   image: string;
 }
@@ -21,4 +22,14 @@ export const totalCountState = atom({
 export const reserveInfoState = atom<ReserveProp[]>({
   key: "reserveInfoState",
   default: [],
+});
+
+export const pickupDateState = atom<Date | null>({
+  key: "pickupDateState",
+  default: null,
+});
+
+export const pickupTimeState = atom<Date>({
+  key: "pickupTimeState",
+  default: undefined,
 });
