@@ -101,7 +101,7 @@ export default function Shop() {
             count={totalCount}
             price={totalPrice}
             text={"장바구니 보기"}
-            onClick={() => router.push("/pocket")}
+            onClick={() => router.push("/basket")}
           />
         ) : null}
       </div>
