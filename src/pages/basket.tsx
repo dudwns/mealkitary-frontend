@@ -24,7 +24,6 @@ export default function Pocket() {
   const [pickup, setPickup] = useState(false);
   const [isPayment, setIsPayment] = useState(false);
   const [price, setPrice] = useState(totalPrice);
-
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderPaymentMethods"]
@@ -146,8 +145,11 @@ export default function Pocket() {
           try {
             await paymentWidget?.requestPayment({
               orderId: nanoid(),
-              orderName: "토스 티셔츠 외 2건",
-              customerName: "김토스",
+              orderName:
+                reserveInfo.length === 1
+                  ? reserveInfo[0].name
+                  : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
+              customerName: "김영준",
               customerEmail: "customer123@gmail.com",
               successUrl: `${window.location.origin}/success`,
               failUrl: `${window.location.origin}/fail`,
