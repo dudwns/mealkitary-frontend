@@ -26,7 +26,9 @@ export default function Product() {
   const [menuData, setMenuData] = useState<MenuItem>();
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [totalCount, setTotalCount] = useRecoilState(totalCountState);
+
   const [reserveInfo, setReserveInfo] = useRecoilState(reserveInfoState);
+
   const [menuCount, setMenuCount] = useState(1);
   const [price, setPrice] = useState(0);
 
@@ -111,6 +113,7 @@ export default function Product() {
           onClick={() => {
             setTotalPrice((prev) => prev + price);
             setTotalCount((prev) => prev + menuCount);
+
             setReserveInfo((prev) => [
               ...prev,
               {
@@ -122,7 +125,6 @@ export default function Product() {
                 image: menuData?.image!,
               },
             ]);
-            console.log(reserveInfo);
             router.back();
           }}
         />
