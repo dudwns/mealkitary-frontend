@@ -45,12 +45,12 @@ const DatePickerComponent: React.FC = () => {
   };
 
   const nowMinTime = new Date();
-  nowMinTime.setHours(new Date().getHours(), 0, 0); // Set minimum time to the current hour
+  nowMinTime.setHours(new Date().getHours(), new Date().getMinutes(), 0); // 현재 시간을 가져옴
 
   const minTime = new Date();
-  minTime.setHours(9, 0, 0); // Set minimum time to 9:00 AM
+  minTime.setHours(9, 0, 0); // 최소 9:00 AM
   const maxTime = new Date();
-  maxTime.setHours(21, 0, 0); // Set maximum time to 9:00 PM
+  maxTime.setHours(21, 0, 0); // 최대 9:00 PM
 
   return (
     <div className="grid grid-cols-2 gap-8 pb-6">
