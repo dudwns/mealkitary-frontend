@@ -87,8 +87,8 @@ export default function Product() {
         </div>
 
         <div className="bg-white px-6 py-4 mt-2 border-t-2 shadow-md flex items-center justify-between">
-          <div className="text-2xl font-extrabold mb-3 flex items-center">수량</div>
-          <div className="flex space-x-6 border border-gray-200  px-4 py-1">
+          <div className="text-2xl font-extrabold flex items-center">수량</div>
+          <div className="flex space-x-6 border border-gray-200 px-4 py-1">
             <button
               onClick={() => {
                 setMenuCount((prev) => (prev > 1 ? prev - 1 : 1));

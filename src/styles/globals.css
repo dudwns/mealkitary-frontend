@@ -19,3 +19,12 @@ html {
 .time-custom-input {
   @apply cursor-pointer w-full border border-blue-500 rounded-md text-center text-base px-2 py-1 outline-none placeholder:text-black;
 }
+
+html,
+body {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}

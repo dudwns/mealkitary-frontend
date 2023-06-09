@@ -53,20 +53,22 @@ export default function Pocket() {
       <Nav backBtn={true}>
         <div>장바구니</div>
       </Nav>
-      <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
+      <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white">
         <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
         <ul className="flex flex-col ">
           {reserveInfo?.map((menu, index) => (
             <Link key={index} href={`/products/${menu?.id}`} className="border-b">
               <li className="py-4">
                 <div className="flex">
-                  {menu.image ? (
-                    <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden">
-                      <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
-                    </div>
-                  ) : (
-                    <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
-                  )}
+                  <div>
+                    {menu.image ? (
+                      <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden">
+                        <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                    )}
+                  </div>
                   <div className="flex flex-col justify-between w-full">
                     <div className="flex items-center">
                       <div className="text-sm font-bold mr-2">{menu?.name}</div>
