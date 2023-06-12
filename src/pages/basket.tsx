@@ -157,7 +157,7 @@ export default function Pocket() {
               failUrl: `${window.location.origin}/fail`,
             });
           } catch (error) {
-            // handle error
+            console.log(error);
           }
         }}
       />
