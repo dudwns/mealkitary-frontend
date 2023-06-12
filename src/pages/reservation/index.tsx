@@ -5,7 +5,7 @@ import shopList from "@/data/shopList.json";
 import { useState } from "react";
 import Image from "next/image";
 
-interface ShopListProp {
+export interface ShopListProp {
   id: number;
   image: string;
   name: string;
