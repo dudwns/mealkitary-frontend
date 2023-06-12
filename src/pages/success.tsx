@@ -95,7 +95,7 @@ export default function SuccessPage({ payment }: Props) {
         <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
         <ul className="flex flex-col ">
           {reserveInfo?.map((menu, index) => (
-            <li className="py-4 border-b">
+            <li key={menu.id} className="py-4 border-b">
               <div className="flex">
                 <div>
                   {menu.image ? (
