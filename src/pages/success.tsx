@@ -8,6 +8,8 @@ import { useRecoilState } from "recoil";
 import { ReserveProp, reserveInfoState } from "@/libs/recoilState";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { ShopListProp } from "./reservation";
+import shopList from "@/data/shopList.json";
 
 // https://docs.tosspayments.com/reference#payment-객체
 interface Payment {
@@ -64,6 +66,7 @@ interface Props {
 export default function SuccessPage({ payment }: Props) {
   const router = useRouter();
   const [reserveInfo, setReserveInfo] = useState<ReserveProp[]>();
+  const [shopListData, setShopListData] = useState<ShopListProp[]>(shopList);
 
   useEffect(() => {
     if (router.query.reserveInfo) {
@@ -74,7 +77,7 @@ export default function SuccessPage({ payment }: Props) {
       }
     }
   }, []);
-  console.log(reserveInfo);
+
   return (
     // <main style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
     //   <h1>결제 성공</h1>
@@ -126,9 +129,17 @@ export default function SuccessPage({ payment }: Props) {
 
         <div className="flex flex-col mt-3 bg-white border-b">
           <div className="font-bold text-lg ">픽업 매장</div>
-          <div className="flex   py-4 ">
+          <div className="flex py-4 ">
             <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
-              <Image src="/images/jipbob.png" alt="메뉴 이미지" layout="fill" />
+              <div>
+                {shopList[0].image ? (
+                  <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
+                    <Image src={shopList[0].image} alt="지점 이미지" layout="fill" />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                )}
+              </div>
             </div>
 
             <div className="flex flex-col justify-between">
