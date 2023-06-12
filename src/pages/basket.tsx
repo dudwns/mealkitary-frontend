@@ -62,7 +62,7 @@ export default function Pocket() {
                 <div className="flex">
                   <div>
                     {menu.image ? (
-                      <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden">
+                      <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
                         <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
                       </div>
                     ) : (
@@ -143,6 +143,7 @@ export default function Pocket() {
       <TabBar
         text="결제하기"
         onClick={async () => {
+          const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo)); // 직렬화
           const paymentWidget = paymentWidgetRef.current;
           try {
             await paymentWidget?.requestPayment({
@@ -153,7 +154,7 @@ export default function Pocket() {
                   : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
               customerName: "김영준",
               customerEmail: "customer123@gmail.com",
-              successUrl: `${window.location.origin}/success`,
+              successUrl: `${window.location.origin}/success?reserveInfo=${serializedReserveInfo}`,
               failUrl: `${window.location.origin}/fail`,
             });
           } catch (error) {
