@@ -4,7 +4,11 @@ import { useRouter } from "next/router";
 import shop from "@/data/shop.json";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { totalPriceState, totalCountState, reserveInfoState } from "@/libs/recoilState";
+import {
+  totalPriceState,
+  totalCountState,
+  reserveInfoState,
+} from "@/libs/recoilState";
 import { useRecoilState } from "recoil";
 
 interface OptionsProp {
@@ -41,7 +45,10 @@ export default function Product() {
     <Layout>
       <div className="pb-20">
         <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
-          <button className="absolute top-4 left-4 z-10" onClick={() => router.back()}>
+          <button
+            className="absolute top-4 left-4 z-10"
+            onClick={() => router.back()}
+          >
             <svg
               className="w-6 h-6 text-white fixed z-10"
               fill="none"
@@ -76,7 +83,10 @@ export default function Product() {
               <li key={index}>
                 <div className="flex relative w-full">
                   <label className="w-full py-4" htmlFor={String(data?.id)}>
-                    <input className="mr-4 text-blue-500 focus:ring-0" type="checkbox" />
+                    <input
+                      className="mr-4 text-green-700 focus:ring-0"
+                      type="checkbox"
+                    />
                     {data?.option}
                   </label>
                   {/* <div className="absolute right-0"> +1000원</div> */}
@@ -92,7 +102,9 @@ export default function Product() {
             <button
               onClick={() => {
                 setMenuCount((prev) => (prev > 1 ? prev - 1 : 1));
-                setPrice((prev) => (menuCount > 1 ? prev - menuData?.price! : menuData?.price!));
+                setPrice((prev) =>
+                  menuCount > 1 ? prev - menuData?.price! : menuData?.price!
+                );
               }}
             >
               -

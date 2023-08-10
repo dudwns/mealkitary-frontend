@@ -1,9 +1,12 @@
 import Layout from "@/components/layout";
-import Nav from "@/components/nav";
+import HeaderBar from "@/components/headerBar";
 import Link from "next/link";
 import shopList from "@/data/shopList.json";
 import { useState } from "react";
 import Image from "next/image";
+import Header from "@/components/headerBar";
+import NavBar from "@/components/navBar";
+import { useRouter } from "next/router";
 
 interface ShopListProp {
   id: number;
@@ -14,11 +17,12 @@ interface ShopListProp {
 
 export default function Home() {
   const [shopListData, setShopListData] = useState<ShopListProp[]>(shopList);
+  const router = useRouter();
   return (
     <Layout>
-      <Nav backBtn={true}>
+      <Header backBtn={true}>
         <div className="relative w-[22rem] flex items-center">
-          <svg
+          <svg //돋보기
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -32,19 +36,19 @@ export default function Home() {
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-          <form className="w-full flex justify-center items-center">
+          <form className="w-full flex justify-center items-center ">
             <input
-              className="w-full h-6 bg-gray-200 rounded-sm text-sm pl-7 focus:outline-none"
-              placeholder="Search"
+              className="w-full h-6 bg-white rounded-sm p-5 text-sm pl-7 focus:outline-none"
+              placeholder="존슨탕? 춘천닭갈비?"
               onFocus={(event) => (event.target.placeholder = "")}
-              onBlur={(event) => (event.target.placeholder = "Search")}
+              onBlur={(event) =>
+                (event.target.placeholder = "존슨탕? 춘천닭갈비?")
+              }
             ></input>
           </form>
-
-          <span className="absolute text-sm text-blue-500 right-2">Cancel</span>
         </div>
-      </Nav>
-      <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white">
+      </Header>
+      <div className="flex flex-col mt-16 border-t-2 h-[58rem] shadow-md px-6 bg-white">
         <div className="text-lg font-bold mt-3 mb-2">예약</div>
         <ul className="flex flex-col divide-y ">
           {shopListData.map((shop) => (
@@ -79,6 +83,7 @@ export default function Home() {
           ))}
         </ul>
       </div>
+      <NavBar></NavBar>
     </Layout>
   );
 }
