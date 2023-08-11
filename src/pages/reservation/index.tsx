@@ -1,12 +1,14 @@
 import Layout from "@/components/layout";
-import HeaderBar from "@/components/headerBar";
-import Link from "next/link";
 import shopList from "@/data/shopList.json";
 import { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/headerBar";
 import NavBar from "@/components/navBar";
 import { useRouter } from "next/router";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
 interface ShopListProp {
   id: number;
@@ -48,12 +50,16 @@ export default function Home() {
           </form>
         </div>
       </Header>
-      <div className="flex flex-col mt-16 border-t-2 h-[58rem] shadow-md px-6 bg-white">
+      <div className="flex flex-col mt-16 border-t-2 h-[58rem] shadow-md px-5 bg-white">
         <div className="text-lg font-bold mt-3 mb-2">예약</div>
-        <ul className="flex flex-col divide-y ">
+        <List className="flex flex-col divide-y ">
           {shopListData.map((shop) => (
-            <Link key={shop.id} href={`/shop/${shop.id}`}>
-              <li className="py-3">
+            <ListItemButton
+              component="a"
+              key={shop.id}
+              href={`/shop/${shop.id}`}
+            >
+              <ListItem className="py-2">
                 <div className="flex">
                   {shop.image ? (
                     <div className="w-14 h-14 relative rounded-lg mr-3 overflow-hidden border border-gray-300">
@@ -63,7 +69,9 @@ export default function Home() {
                     <div className="w-14 h-14 bg-gray-300 rounded-lg mr-3"></div>
                   )}
                   <div className="flex flex-col ">
-                    <div className="text-sm mb-3 font-bold">{shop.name}</div>
+                    <ListItemText className="text-sm mb-3 font-bold">
+                      {shop.name}
+                    </ListItemText>
                     <div className="flex items-center">
                       <svg
                         className="h-4 w-4 cursor-pointer text-yellow-300"
@@ -78,10 +86,10 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </li>
-            </Link>
+              </ListItem>
+            </ListItemButton>
           ))}
-        </ul>
+        </List>
       </div>
       <NavBar></NavBar>
     </Layout>
