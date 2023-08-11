@@ -10,7 +10,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 
-interface ShopListProp {
+export interface ShopListProp {
   id: number;
   image: string;
   name: string;

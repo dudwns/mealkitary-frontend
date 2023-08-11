@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-interface ReserveProp {
+export interface ReserveProp {
   id: number;
   name: string;
   price: number;

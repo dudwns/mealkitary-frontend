@@ -4,6 +4,12 @@ import Layout from "@/components/layout";
 import Nav from "@/components/headerBar";
 import TabBar from "@/components/tabBar";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { ReserveProp, reserveInfoState } from "@/libs/recoilState";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { ShopListProp } from "./reservation";
+import shopList from "@/data/shopList.json";
 
 // https://docs.tosspayments.com/reference#payment-객체
 interface Payment {
@@ -59,6 +65,18 @@ interface Props {
 
 export default function SuccessPage({ payment }: Props) {
   const router = useRouter();
+  const [reserveInfo, setReserveInfo] = useState<ReserveProp[]>();
+  const [shopListData, setShopListData] = useState<ShopListProp[]>(shopList);
+
+  useEffect(() => {
+    if (router.query.reserveInfo) {
+      try {
+        setReserveInfo(JSON.parse(decodeURIComponent(String(router.query.reserveInfo))));
+      } catch (error) {
+        console.error("Error parsing reserveInfo:", error);
+      }
+    }
+  }, []);
 
   return (
     // <main style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -77,48 +95,70 @@ export default function SuccessPage({ payment }: Props) {
       </Nav>
 
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
-        <h3 className="font-bold text-lg mt-3">예약 한 메뉴</h3>
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="flex border-b items-center">
-            <div>
-              <div className="w-14 h-14 bg-gray-300 rounded-md mr-4 my-5" />
-            </div>
-            <div className="flex flex-col justify-between w-full">
-              <div className="flex items-center">
-                <div className="text-sm font-bold mr-2">메뉴 이름</div>
-                <div className="text-xs text-gray-500">가격: 13,000원</div>
+        <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
+        <ul className="flex flex-col ">
+          {reserveInfo?.map((menu, index) => (
+            <li key={menu.id} className="py-4 border-b">
+              <div className="flex">
+                <div>
+                  {menu.image ? (
+                    <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
+                      <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                  )}
+                </div>
+                <div className="flex flex-col justify-between w-full">
+                  <div className="flex items-center">
+                    <div className="text-sm font-bold mr-2">{menu?.name}</div>
+                    <div className="text-xs text-gray-500">
+                      가격: {menu?.price.toLocaleString()}원
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-500">제품 설명</div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
+                    <div className="text-sm">x{menu?.count}</div>
+                  </div>
+                </div>
               </div>
-              <div className="text-xs text-gray-500">제품 설명</div>
-              <div className="flex items-center justify-between">
-                <div className="text-sm">13,500원</div>
-                <div className="text-sm">x 1</div>
-              </div>
-            </div>
-          </div>
-        ))}
+            </li>
+          ))}
+        </ul>
 
         <div className="flex flex-col mt-3 bg-white border-b">
-          <h3 className="font-bold text-lg ">픽업 매장</h3>
-          <div className="flex my-2 py-2 items-center">
-            <div className="w-14 h-14 bg-gray-300 rounded-md mr-4" />
-            <div className="flex flex-col">
-              <span className="text-sm">지점 이름</span>
-              <span className="text-xs cursor-pointer">주소</span>
-              <span className="text-xs cursor-pointer text-blue-700 font-semibold">
-                지도로 보기
-              </span>
+          <div className="font-bold text-lg ">픽업 매장</div>
+          <div className="flex py-4 ">
+            <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
+              <div>
+                {shopList[0].image ? (
+                  <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
+                    <Image src={shopList[0].image} alt="지점 이미지" layout="fill" />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-between">
+              <div className="text-sm">집밥뚝딱 구로점</div>
+              <div className="text-xs">주소</div>
+              <div className="text-xs text-blue-600">지도로 보기</div>
             </div>
           </div>
         </div>
+
         <div className="flex flex-col mt-3 bg-white">
-          <h3 className="font-bold text-lg mt-3">예약 시간</h3>
+          <div className="font-bold text-lg ">픽업 정보</div>
           <div className="flex justify-between border-b py-2">
-            <span className="text-md">예약 날짜</span>
-            <span className="text-md text-gray-400">2023.06.25</span>
+            <div className="text-base">픽업 날짜</div>
+            <div className="text-base text-gray-500">2023.06.13</div>
           </div>
-          <div className="flex justify-between border-b py-2">
-            <span className="text-md">예약 시간</span>
-            <span className="text-md text-gray-400">15:00</span>
+          <div className="flex justify-between border-b py-2 mb-2">
+            <div className="text-base">픽업 시간</div>
+            <div className="text-base text-gray-500">오후 9:00</div>
           </div>
 
           <div className="flex justify-around py-4">

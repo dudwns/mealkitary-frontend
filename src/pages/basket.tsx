@@ -180,6 +180,9 @@ export default function Pocket() {
       <TabBar
         text="결제하기"
         onClick={async () => {
+          const serializedReserveInfo = encodeURIComponent(
+            JSON.stringify(reserveInfo)
+          ); // 직렬화
           const paymentWidget = paymentWidgetRef.current;
           try {
             await paymentWidget?.requestPayment({
@@ -190,7 +193,7 @@ export default function Pocket() {
                   : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
               customerName: "김영준",
               customerEmail: "customer123@gmail.com",
-              successUrl: `${window.location.origin}/success`,
+              successUrl: `${window.location.origin}/success?reserveInfo=${serializedReserveInfo}`,
               failUrl: `${window.location.origin}/fail`,
             });
           } catch (error) {

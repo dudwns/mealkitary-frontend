@@ -83,7 +83,7 @@ export default function Shop() {
                 <li className="py-4">
                   <div className="flex">
                     {menu.image ? (
-                      <div className="w-16 h-16 rounded-lg mr-3 relative overflow-hidden">
+                      <div className="w-16 h-16 rounded-lg mr-3 relative overflow-hidden border border-gray-300">
                         <Image
                           src={menu.image}
                           alt="메뉴 이미지"
