@@ -16,6 +16,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePickerComponent from "@/components/datePicker";
 import { useRouter } from "next/router";
 import Header from "@/components/headerBar";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
 const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
@@ -106,9 +109,14 @@ export default function Pocket() {
             </Link>
           ))}
         </ul>
-        <button className="mb-10 mt-4" onClick={() => router.back()}>
-          <span className="text-gray-500 text-base">+</span> 더 담으러 가기
-        </button>
+        <div className="mb-10 mt-4 text-center">
+          <BottomNavigationAction
+            className="animate-bounce"
+            label="더 담으러 가기"
+            onClick={() => router.back()}
+            icon={<ArrowCircleDownIcon />}
+          />
+        </div>
         <div className="flex justify-between border-b py-6">
           <div className="text-lg font-bold">총 결제금액</div>
           <div className="text-lg font-bold">
