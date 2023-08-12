@@ -1,6 +1,6 @@
 import "swiper/swiper.min.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Autoplay } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 
 import Image from "next/image";
 
