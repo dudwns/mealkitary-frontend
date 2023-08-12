@@ -20,7 +20,7 @@ export default function Nav() {
   return (
     <BottomNavigation
       showLabels
-      className="fixed bottom-0 w-full border-t-2 border-green-700 pt-2 rounded-tl-3xl rounded-tr-3xl"
+      className=" bg-white border-t-2 border-green-700 rounded-tr-3xl rounded-tl-3xl w-full max-w-xl fixed left-0 right-0 mx-auto bottom-0 flex justify-center items-center z-20"
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
