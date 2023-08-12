@@ -77,7 +77,7 @@ export default function Product() {
           <div>음식 세부 정보</div>
         </div>
         <div className="bg-white px-6 mt-2 border-t-2 shadow-md border-b-2 border-b-gray-300">
-          <div className="text-lg font-bold mt-3 mb-2">옵션 선택</div>
+          <div className="text-lg font-bold mt-4 mb-2">옵션 선택</div>
           <ul className="divide-y">
             {menuData?.options.map((data, index) => (
               <li key={index}>

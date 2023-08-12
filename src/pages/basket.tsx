@@ -17,8 +17,8 @@ import DatePickerComponent from "@/components/datePicker";
 import { useRouter } from "next/router";
 import Header from "@/components/headerBar";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import { List, ListItemButton } from "@mui/material";
 
 const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
 const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
@@ -66,19 +66,15 @@ export default function Pocket() {
         <div className="text-white">장바구니</div>
       </Header>
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white">
-        <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
-        <ul className="flex flex-col ">
+        <div className="text-lg font-bold mt-4 mb-2">예약 한 메뉴</div>
+        <List className="flex flex-col ">
           {reserveInfo?.map((menu, index) => (
-            <Link
-              key={index}
-              href={`/products/${menu?.id}`}
-              className="border-b"
-            >
+            <div key={index} className="border-b">
               <li className="py-4">
                 <div className="flex">
                   <div>
                     {menu.image ? (
-                      <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden">
+                      <div className="w-16 h-16 rounded-lg  mr-4 relative overflow-hidden">
                         <Image
                           src={menu.image}
                           alt="메뉴 이미지"
@@ -106,17 +102,20 @@ export default function Pocket() {
                   </div>
                 </div>
               </li>
-            </Link>
+            </div>
           ))}
-        </ul>
-        <div className="mb-10 mt-4 text-center">
+        </List>
+        <ListItemButton
+          className="mb-10 mt-4 text-center flex flex-col items-center "
+          onClick={() => router.back()}
+        >
           <BottomNavigationAction
-            className="animate-bounce"
+            className="animate-bounce text-blue-600 pointer-events-none"
             label="더 담으러 가기"
-            onClick={() => router.back()}
             icon={<ArrowCircleDownIcon />}
           />
-        </div>
+          <div>더 담으러가기</div>
+        </ListItemButton>
         <div className="flex justify-between border-b py-6">
           <div className="text-lg font-bold">총 결제금액</div>
           <div className="text-lg font-bold">
@@ -133,7 +132,7 @@ export default function Pocket() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6 text-blue-500 cursor-pointer"
+              className="w-6 h-6 text-blue-600 cursor-pointer"
               onClick={() => setPickup((prev) => !prev)}
             >
               <path
@@ -155,7 +154,7 @@ export default function Pocket() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6 text-blue-500 cursor-pointer"
+              className="w-6 h-6 text-blue-600 cursor-pointer"
               onClick={() => setIsPayment((prev) => !prev)}
             >
               <path

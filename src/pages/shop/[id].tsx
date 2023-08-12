@@ -71,20 +71,20 @@ export default function Shop() {
           )}
         </div>
         <div className="bg-white px-6 py-4  border-b-2 border-gray-300 shadow-lg ">
-          <div className="text-2xl font-extrabold mb-3">{shopData?.title}</div>
+          <div className="text-2xl font-extrabold mb-4">{shopData?.title}</div>
           <div className="flex justify-center items-center border-2 h-48 rounded-xl">
             {shopData?.description}
           </div>
         </div>
         <div className="bg-white px-6 mt-2 border-t-2 shadow-md">
-          <div className="text-lg font-bold mt-3 mb-2">인기 메뉴</div>
+          <div className="text-lg font-bold mt-4 mb-2 ">인기 메뉴</div>
           <List className="flex flex-col divide-y">
             {shopData?.menus?.map((menu) => (
               <Link key={menu.id} href={`/products/${menu.id}`}>
                 <ListItemButton className="py-4">
                   <div className="flex">
                     {menu.image ? (
-                      <div className="w-16 h-16 rounded-lg mr-3 relative overflow-hidden border border-gray-300">
+                      <div className="w-16 h-16 rounded-lg mr-4 relative overflow-hidden border border-gray-300">
                         <Image
                           src={menu.image}
                           alt="메뉴 이미지"
@@ -92,7 +92,7 @@ export default function Shop() {
                         />
                       </div>
                     ) : (
-                      <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                      <div className="w-16 h-16 bg-gray-300 rounded-lg"></div>
                     )}
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-bold">{menu.name}</div>
