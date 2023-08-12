@@ -11,7 +11,6 @@ import Image from "next/image";
 import { ShopListProp } from "./reservation";
 import shopList from "@/data/shopList.json";
 
-// https://docs.tosspayments.com/reference#payment-객체
 interface Payment {
   orderName: string;
   approvedAt: string;
@@ -37,9 +36,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
       {
         headers: {
-          Authorization: `Basic ${Buffer.from(
-            `${process.env.TOSS_PAYMENTS_SECRET_KEY}:`
-          ).toString("base64")}`,
+          Authorization: `Basic ${Buffer.from(`${process.env.TOSS_PAYMENTS_SECRET_KEY}:`).toString(
+            "base64"
+          )}`,
         },
       }
     );

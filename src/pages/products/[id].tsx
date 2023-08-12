@@ -4,11 +4,7 @@ import { useRouter } from "next/router";
 import shop from "@/data/shop.json";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import {
-  totalPriceState,
-  totalCountState,
-  reserveInfoState,
-} from "@/libs/recoilState";
+import { totalPriceState, totalCountState, reserveInfoState } from "@/libs/recoilState";
 import { useRecoilState } from "recoil";
 
 interface OptionsProp {
@@ -45,10 +41,7 @@ export default function Product() {
     <Layout>
       <div className="pb-20">
         <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
-          <button
-            className="absolute top-4 left-4 z-10"
-            onClick={() => router.back()}
-          >
+          <button className="absolute top-4 left-4 z-10" onClick={() => router.back()}>
             <svg
               className="w-6 h-6 text-white fixed z-10"
               fill="none"
@@ -76,35 +69,13 @@ export default function Product() {
           <div className="text-2xl font-extrabold mb-3">음식 이름</div>
           <div>음식 세부 정보</div>
         </div>
-        <div className="bg-white px-6 mt-2 border-t-2 shadow-md border-b-2 border-b-gray-300">
-          <div className="text-lg font-bold mt-4 mb-2">옵션 선택</div>
-          <ul className="divide-y">
-            {menuData?.options.map((data, index) => (
-              <li key={index}>
-                <div className="flex relative w-full">
-                  <label className="w-full py-4" htmlFor={String(data?.id)}>
-                    <input
-                      className="mr-4 text-green-700 focus:ring-0"
-                      type="checkbox"
-                    />
-                    {data?.option}
-                  </label>
-                  {/* <div className="absolute right-0"> +1000원</div> */}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         <div className="bg-white px-6 py-4 mt-2 border-t-2 shadow-md flex items-center justify-between">
           <div className="text-2xl font-extrabold flex items-center">수량</div>
           <div className="flex space-x-6 border border-gray-200 px-4 py-1">
             <button
               onClick={() => {
                 setMenuCount((prev) => (prev > 1 ? prev - 1 : 1));
-                setPrice((prev) =>
-                  menuCount > 1 ? prev - menuData?.price! : menuData?.price!
-                );
+                setPrice((prev) => (menuCount > 1 ? prev - menuData?.price! : menuData?.price!));
               }}
             >
               -

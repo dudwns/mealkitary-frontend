@@ -6,9 +6,7 @@ import { useRecoilState } from "recoil";
 import { pickupDateState, pickupTimeState } from "@/libs/recoilState";
 
 const DatePickerComponent: React.FC = () => {
-  const [pickupDate, setPickupDate] = useRecoilState<Date | null>(
-    pickupDateState
-  );
+  const [pickupDate, setPickupDate] = useRecoilState<Date | null>(pickupDateState);
   const [pickupTime, setPickupTime] = useRecoilState<Date>(pickupTimeState);
 
   const DateCustomInput: React.FC<{ value: string; onClick: () => void }> = ({
@@ -69,11 +67,7 @@ const DatePickerComponent: React.FC = () => {
         withPortal
         customInput={
           <DateCustomInput
-            value={
-              pickupDate
-                ? pickupDate.toLocaleDateString("ko-KR")
-                : "날짜 선택하기"
-            }
+            value={pickupDate ? pickupDate.toLocaleDateString("ko-KR") : "날짜 선택하기"}
             onClick={() => {}}
           />
         }
@@ -95,11 +89,7 @@ const DatePickerComponent: React.FC = () => {
         maxTime={maxTime}
         customInput={
           <TimeCustomInput
-            value={
-              pickupDate
-                ? pickupDate.toLocaleDateString("ko-KR")
-                : "날짜 선택하기"
-            }
+            value={pickupDate ? pickupDate.toLocaleDateString("ko-KR") : "날짜 선택하기"}
             onClick={() => {}}
           />
         }
