@@ -15,9 +15,9 @@ export default function TabBar({
 }: TabBarProps) {
   const router = useRouter();
   return (
-    <div className="bg-white max-w-xl text-white border-t-4 border-gray-200  fixed bottom-0 w-full px-10 py-3 flex justify-between">
+    <div className="bg-white max-w-xl text-white border-t-4 border-gray-200  fixed bottom-0 w-full px-10 py-3 flex justify-between items-center">
       <button
-        className="bg-green-700 w-full py-2 rounded-lg flex justify-around"
+        className="bg-green-700 w-full py-2 rounded-lg flex justify-around hover:bg-green-800 "
         onClick={onClick}
       >
         {contain ? (
