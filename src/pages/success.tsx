@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Layout from "@/components/layout";
-import Nav from "@/components/nav";
+import Nav from "@/components/headerBar";
 import TabBar from "@/components/tabBar";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -37,9 +37,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
       {
         headers: {
-          Authorization: `Basic ${Buffer.from(`${process.env.TOSS_PAYMENTS_SECRET_KEY}:`).toString(
-            "base64"
-          )}`,
+          Authorization: `Basic ${Buffer.from(
+            `${process.env.TOSS_PAYMENTS_SECRET_KEY}:`
+          ).toString("base64")}`,
         },
       }
     );

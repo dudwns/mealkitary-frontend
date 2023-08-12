@@ -8,6 +8,10 @@ import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { totalPriceState, totalCountState } from "@/libs/recoilState";
 import Slider from "@/components/slider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
 export interface MenuItem {
   id: number;
@@ -27,7 +31,9 @@ interface shop {
 
 export default function Shop() {
   const router = useRouter();
-  const [shopData, setShopData] = useState<shop>(shop[Number(router.query.id) - 1]);
+  const [shopData, setShopData] = useState<shop>(
+    shop[Number(router.query.id) - 1]
+  );
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [totalCount, setTotalCount] = useRecoilState(totalCountState);
 
@@ -64,36 +70,44 @@ export default function Shop() {
             <div>상품 이미지가 없습니다.</div>
           )}
         </div>
-        <div className="bg-white px-6 py-4  border-b-2 border-gray-300 shadow-md ">
-          <div className="text-2xl font-extrabold mb-3">{shopData?.title}</div>
+        <div className="bg-white px-6 py-4  border-b-2 border-gray-300 shadow-lg ">
+          <div className="text-2xl font-extrabold mb-4">{shopData?.title}</div>
           <div className="flex justify-center items-center border-2 h-48 rounded-xl">
             {shopData?.description}
           </div>
         </div>
         <div className="bg-white px-6 mt-2 border-t-2 shadow-md">
-          <div className="text-lg font-bold mt-3 mb-2">인기 메뉴</div>
-          <ul className="flex flex-col divide-y">
+          <div className="text-lg font-bold mt-4 mb-2 ">인기 메뉴</div>
+          <List className="flex flex-col divide-y">
             {shopData?.menus?.map((menu) => (
               <Link key={menu.id} href={`/products/${menu.id}`}>
-                <li className="py-4">
+                <ListItemButton className="py-4">
                   <div className="flex">
                     {menu.image ? (
-                      <div className="w-16 h-16 rounded-lg mr-3 relative overflow-hidden border border-gray-300">
-                        <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
+                      <div className="w-16 h-16 rounded-lg mr-4 relative overflow-hidden border border-gray-300">
+                        <Image
+                          src={menu.image}
+                          alt="메뉴 이미지"
+                          layout="fill"
+                        />
                       </div>
                     ) : (
-                      <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                      <div className="w-16 h-16 bg-gray-300 rounded-lg"></div>
                     )}
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-bold">{menu.name}</div>
-                      <div className="text-xs text-gray-500">{menu.description}</div>
-                      <div className="text-sm">{menu.price.toLocaleString()}원</div>
+                      <div className="text-xs text-gray-500">
+                        {menu.description}
+                      </div>
+                      <div className="text-sm">
+                        {menu.price.toLocaleString()}원
+                      </div>
                     </div>
                   </div>
-                </li>
+                </ListItemButton>
               </Link>
             ))}
-          </ul>
+          </List>
         </div>
         {totalCount !== 0 ? (
           <TabBar

@@ -1,18 +1,24 @@
 import Layout from "@/components/layout";
-import Nav from "@/components/nav";
 import TabBar from "@/components/tabBar";
 import { reserveInfoState, totalPriceState } from "@/libs/recoilState";
 import Image from "next/image";
 import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { useEffect, useRef, useState } from "react";
-import { PaymentWidgetInstance, loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
+import {
+  PaymentWidgetInstance,
+  loadPaymentWidget,
+} from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useAsync } from "react-use";
 import { cls } from "@/libs/utils";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerComponent from "@/components/datePicker";
 import { useRouter } from "next/router";
+import Header from "@/components/headerBar";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import { List, ListItemButton } from "@mui/material";
 
 const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
 const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
@@ -32,7 +38,10 @@ export default function Pocket() {
   useAsync(async () => {
     const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
 
-    const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget", price);
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+      "#payment-widget",
+      price
+    );
 
     paymentWidgetRef.current = paymentWidget;
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
@@ -45,25 +54,32 @@ export default function Pocket() {
       return;
     }
 
-    paymentMethodsWidget.updateAmount(price, paymentMethodsWidget.UPDATE_REASON.COUPON);
+    paymentMethodsWidget.updateAmount(
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON
+    );
   }, [price]);
 
   return (
     <Layout>
-      <Nav backBtn={true}>
-        <div>장바구니</div>
-      </Nav>
+      <Header backBtn={true}>
+        <div className="text-white">장바구니</div>
+      </Header>
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white">
-        <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
-        <ul className="flex flex-col ">
+        <div className="text-lg font-bold mt-4 mb-2">예약 한 메뉴</div>
+        <List className="flex flex-col ">
           {reserveInfo?.map((menu, index) => (
-            <Link key={index} href={`/products/${menu?.id}`} className="border-b">
+            <div key={index} className="border-b">
               <li className="py-4">
                 <div className="flex">
                   <div>
                     {menu.image ? (
-                      <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
-                        <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
+                      <div className="w-16 h-16 rounded-lg  mr-4 relative overflow-hidden">
+                        <Image
+                          src={menu.image}
+                          alt="메뉴 이미지"
+                          layout="fill"
+                        />
                       </div>
                     ) : (
                       <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
@@ -78,21 +94,33 @@ export default function Pocket() {
                     </div>
                     <div className="text-xs text-gray-500">제품 설명</div>
                     <div className="flex items-center justify-between">
-                      <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
+                      <div className="text-sm">
+                        {menu?.totalPrice.toLocaleString()}원
+                      </div>
                       <div className="text-sm">x{menu?.count}</div>
                     </div>
                   </div>
                 </div>
               </li>
-            </Link>
+            </div>
           ))}
-        </ul>
-        <button className="mb-10 mt-4" onClick={() => router.back()}>
-          <span className="text-gray-500 text-base">+</span> 더 담으러 가기
-        </button>
+        </List>
+        <ListItemButton
+          className="mb-10 mt-4 text-center flex flex-col items-center "
+          onClick={() => router.back()}
+        >
+          <BottomNavigationAction
+            className="animate-bounce text-blue-600 pointer-events-none"
+            label="더 담으러 가기"
+            icon={<ArrowCircleDownIcon />}
+          />
+          <div>더 담으러가기</div>
+        </ListItemButton>
         <div className="flex justify-between border-b py-6">
           <div className="text-lg font-bold">총 결제금액</div>
-          <div className="text-lg font-bold">{totalPrice.toLocaleString()}원</div>
+          <div className="text-lg font-bold">
+            {totalPrice.toLocaleString()}원
+          </div>
         </div>
 
         <div>
@@ -104,10 +132,14 @@ export default function Pocket() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6 text-blue-500 cursor-pointer"
+              className="w-6 h-6 text-blue-600 cursor-pointer"
               onClick={() => setPickup((prev) => !prev)}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
             </svg>
           </div>
           {pickup ? <DatePickerComponent /> : ""}
@@ -122,10 +154,14 @@ export default function Pocket() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6 text-blue-500 cursor-pointer"
+              className="w-6 h-6 text-blue-600 cursor-pointer"
               onClick={() => setIsPayment((prev) => !prev)}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
             </svg>
           </div>
 
@@ -143,7 +179,9 @@ export default function Pocket() {
       <TabBar
         text="결제하기"
         onClick={async () => {
-          const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo)); // 직렬화
+          const serializedReserveInfo = encodeURIComponent(
+            JSON.stringify(reserveInfo)
+          ); // 직렬화
           const paymentWidget = paymentWidgetRef.current;
           try {
             await paymentWidget?.requestPayment({
