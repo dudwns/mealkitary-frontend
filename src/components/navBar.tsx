@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -8,14 +7,7 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import FaceIcon from "@mui/icons-material/Face";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-interface NavProps {
-  backBtn?: boolean;
-  title?: string;
-  children: React.ReactNode;
-}
-
 export default function Nav() {
-  const router = useRouter();
   const [value, setValue] = React.useState(0);
   return (
     <BottomNavigation

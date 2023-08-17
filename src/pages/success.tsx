@@ -1,11 +1,10 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Layout from "@/components/layout";
-import Nav from "@/components/headerBar";
-import TabBar from "@/components/tabBar";
+import Nav from "@/components/HeaderBar";
+import TabBar from "@/components/TabBar";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { ReserveProp, reserveInfoState } from "@/libs/recoilState";
+import { ReserveProp } from "@/libs/recoilState";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ShopListProp } from "./reservation";

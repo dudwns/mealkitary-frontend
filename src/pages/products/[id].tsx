@@ -1,11 +1,11 @@
 import Layout from "@/components/layout";
-import TabBar from "@/components/tabBar";
+import TabBar from "@/components/TabBar";
 import { useRouter } from "next/router";
 import shop from "@/data/shop.json";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { totalPriceState, totalCountState, reserveInfoState } from "@/libs/recoilState";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 interface OptionsProp {
   id: number;
@@ -24,11 +24,9 @@ export interface MenuItem {
 export default function Product() {
   const router = useRouter();
   const [menuData, setMenuData] = useState<MenuItem>();
-  const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
-  const [totalCount, setTotalCount] = useRecoilState(totalCountState);
-
-  const [reserveInfo, setReserveInfo] = useRecoilState(reserveInfoState);
-
+  const setTotalPrice = useSetRecoilState(totalPriceState);
+  const setTotalCount = useSetRecoilState(totalCountState);
+  const setReserveInfo = useSetRecoilState(reserveInfoState);
   const [menuCount, setMenuCount] = useState(1);
   const [price, setPrice] = useState(0);
 
@@ -96,7 +94,6 @@ export default function Product() {
           onClick={() => {
             setTotalPrice((prev) => prev + price);
             setTotalCount((prev) => prev + menuCount);
-
             setReserveInfo((prev) => [
               ...prev,
               {

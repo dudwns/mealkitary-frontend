@@ -1,5 +1,5 @@
 import Layout from "@/components/layout";
-import TabBar from "@/components/tabBar";
+import TabBar from "@/components/TabBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import shop from "@/data/shop.json";
@@ -7,11 +7,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { totalPriceState, totalCountState } from "@/libs/recoilState";
-import Slider from "@/components/slider";
+import Slider from "@/components/Slider";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 
 export interface MenuItem {
   id: number;
@@ -31,9 +29,7 @@ interface shop {
 
 export default function Shop() {
   const router = useRouter();
-  const [shopData, setShopData] = useState<shop>(
-    shop[Number(router.query.id) - 1]
-  );
+  const [shopData, setShopData] = useState<shop>(shop[Number(router.query.id) - 1]);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [totalCount, setTotalCount] = useRecoilState(totalCountState);
 
@@ -85,23 +81,15 @@ export default function Shop() {
                   <div className="flex">
                     {menu.image ? (
                       <div className="w-16 h-16 rounded-lg mr-4 relative overflow-hidden border border-gray-300">
-                        <Image
-                          src={menu.image}
-                          alt="메뉴 이미지"
-                          layout="fill"
-                        />
+                        <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
                       </div>
                     ) : (
                       <div className="w-16 h-16 bg-gray-300 rounded-lg"></div>
                     )}
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-bold">{menu.name}</div>
-                      <div className="text-xs text-gray-500">
-                        {menu.description}
-                      </div>
-                      <div className="text-sm">
-                        {menu.price.toLocaleString()}원
-                      </div>
+                      <div className="text-xs text-gray-500">{menu.description}</div>
+                      <div className="text-sm">{menu.price.toLocaleString()}원</div>
                     </div>
                   </div>
                 </ListItemButton>

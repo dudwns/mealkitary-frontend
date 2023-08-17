@@ -1,5 +1,5 @@
 import Layout from "@/components/layout";
-import TabBar from "@/components/tabBar";
+import TabBar from "@/components/TabBar";
 import { reserveInfoState, totalPriceState } from "@/libs/recoilState";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
@@ -9,9 +9,9 @@ import { nanoid } from "nanoid";
 import { useAsync } from "react-use";
 import { cls } from "@/libs/utils";
 import "react-datepicker/dist/react-datepicker.css";
-import DatePickerComponent from "@/components/datePicker";
+import DatePickerComponent from "@/components/DatePicker";
 import { useRouter } from "next/router";
-import Header from "@/components/headerBar";
+import Header from "@/components/HeaderBar";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { List, ListItemButton } from "@mui/material";
