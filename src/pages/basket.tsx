@@ -2,7 +2,6 @@ import Layout from "@/components/layout";
 import TabBar from "@/components/tabBar";
 import { reserveInfoState, totalPriceState } from "@/libs/recoilState";
 import Image from "next/image";
-import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { useEffect, useRef, useState } from "react";
 import { PaymentWidgetInstance, loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
@@ -16,11 +15,7 @@ import Header from "@/components/headerBar";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { List, ListItemButton } from "@mui/material";
-import { MenuItem } from "./products/[id]";
 import addMenuData from "@/data/addMenu.json";
-
-const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
-const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
 
 export default function Pocket() {
   const router = useRouter();
@@ -32,13 +27,15 @@ export default function Pocket() {
   const [price, setPrice] = useState(totalPrice);
   const [addMenu, setAddMenu] = useState(addMenuData);
 
+  const clientKey = process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY;
+
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderPaymentMethods"]
   > | null>(null);
 
   useAsync(async () => {
-    const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
+    const paymentWidget = await loadPaymentWidget(clientKey as string, "@@ANONYMOUS");
 
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget", price);
 
@@ -56,21 +53,17 @@ export default function Pocket() {
     paymentMethodsWidget.updateAmount(price, paymentMethodsWidget.UPDATE_REASON.COUPON);
   }, [price]);
 
-  useEffect(() => {
-    console.log(addMenu);
-  });
-
   const rotationPickup = pickup ? "180deg" : "0deg";
   const rotationPayment = isPayment ? "180deg" : "0deg";
 
   const pickupSvgStyle = {
     transform: `rotate(${rotationPickup})`,
-    transition: "transform 0.5s", // 회전 애니메이션의 지속 시간을 설정
+    transition: "transform 0.5s",
   };
 
   const paymentSvgStyle = {
     transform: `rotate(${rotationPayment})`,
-    transition: "transform 0.5s", // 회전 애니메이션의 지속 시간을 설정
+    transition: "transform 0.5s",
   };
 
   return (
@@ -135,7 +128,6 @@ export default function Pocket() {
                     <input className="mr-4 text-blue-600 focus:ring-0" type="checkbox" />
                     {data?.option}
                   </label>
-                  {/* <div className="absolute right-0"> +1000원</div> */}
                 </div>
               </li>
             ))}
@@ -206,7 +198,7 @@ export default function Pocket() {
       <TabBar
         text="결제하기"
         onClick={async () => {
-          const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo)); // 직렬화
+          const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo));
           const paymentWidget = paymentWidgetRef.current;
           try {
             await paymentWidget?.requestPayment({
