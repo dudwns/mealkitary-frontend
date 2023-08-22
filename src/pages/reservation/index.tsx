@@ -9,15 +9,29 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 
+import { useQuery } from "react-query";
+import { getShops } from "@/libs/api";
+
 export interface ShopListProp {
   id: number;
   image: string;
-  name: string;
+  title: string;
   score: number;
 }
 
 export default function Home() {
-  const [shopListData, setShopListData] = useState<ShopListProp[]>(shopList);
+  const [shopListData, setShopListData] = useState<ShopListProp[]>();
+  const { isLoading, data, error } = useQuery("shopList", getShops, {
+    refetchOnWindowFocus: false,
+    retry: 0,
+    onSuccess: (data) => {
+      setShopListData(data.data);
+    },
+    onError: (e: Error) => {
+      console.error(e.message);
+    },
+  });
+
   return (
     <Layout>
       <Header backBtn={true}>
@@ -49,7 +63,7 @@ export default function Home() {
       <div className="flex flex-col mt-16 border-t-2 h-[64rem] shadow-md bg-white">
         <div className="text-lg font-bold mt-4 ml-8">예약</div>
         <List className="flex flex-col  divide-y ">
-          {shopListData.map((shop) => (
+          {shopListData?.map((shop: ShopListProp) => (
             <div key={shop.id}>
               <ListItemButton component="a" href={`/shop/${shop.id}`}>
                 <ListItem className="py-2">
@@ -62,7 +76,7 @@ export default function Home() {
                       <div className="w-14 h-14 bg-gray-300 rounded-lg mr-2"></div>
                     )}
                     <div className="flex flex-col ">
-                      <ListItemText className="text-sm mb-2 font-bold">{shop.name}</ListItemText>
+                      <ListItemText className="text-sm mb-2 font-bold">{shop.title}</ListItemText>
                       <div className="flex items-center">
                         <svg
                           className="h-4 w-4 cursor-pointer text-yellow-300"
