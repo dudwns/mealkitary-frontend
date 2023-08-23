@@ -1,11 +1,17 @@
 import Layout from "@/components/layout";
-import TabBar from "@/components/TabBar";
+import TabBar from "@/components/tabBar";
 import { useRouter } from "next/router";
 import shop from "@/data/shop.json";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { totalPriceState, totalCountState, reserveInfoState } from "@/libs/recoilState";
+import {
+  totalPriceState,
+  totalCountState,
+  reserveInfoState,
+} from "@/libs/recoilState";
 import { useSetRecoilState } from "recoil";
+import { useQuery } from "react-query";
+import { getShops } from "@/libs/api";
 
 interface OptionsProp {
   id: number;
@@ -24,6 +30,16 @@ export interface MenuItem {
 export default function Product() {
   const router = useRouter();
   const [menuData, setMenuData] = useState<MenuItem>();
+  const { isLoading, data, error } = useQuery("menuList", getShops, {
+    refetchOnWindowFocus: false,
+    retry: 0,
+    onSuccess: (data) => {
+      setMenuData(data.data);
+    },
+    onError: (e: Error) => {
+      console.log(e.message);
+    },
+  });
   const setTotalPrice = useSetRecoilState(totalPriceState);
   const setTotalCount = useSetRecoilState(totalCountState);
   const setReserveInfo = useSetRecoilState(reserveInfoState);
@@ -39,7 +55,10 @@ export default function Product() {
     <Layout>
       <div className="pb-20">
         <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
-          <button className="absolute top-4 left-4 z-10" onClick={() => router.back()}>
+          <button
+            className="absolute top-4 left-4 z-10"
+            onClick={() => router.back()}
+          >
             <svg
               className="w-6 h-6 text-white fixed z-10"
               fill="none"
@@ -73,7 +92,9 @@ export default function Product() {
             <button
               onClick={() => {
                 setMenuCount((prev) => (prev > 1 ? prev - 1 : 1));
-                setPrice((prev) => (menuCount > 1 ? prev - menuData?.price! : menuData?.price!));
+                setPrice((prev) =>
+                  menuCount > 1 ? prev - menuData?.price! : menuData?.price!
+                );
               }}
             >
               -
