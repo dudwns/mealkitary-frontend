@@ -3,7 +3,11 @@
     "id": 1,
     "title": "집밥뚝딱 구로점",
     "description": "집밥뚝딱 구로점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -116,7 +120,11 @@
     "id": 2,
     "title": "집밥뚝딱 개봉점",
     "description": "집밥뚝딱 개봉점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -229,7 +237,11 @@
     "id": 3,
     "title": "집밥뚝딱 안양점",
     "description": "집밥뚝딱 안양점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -342,7 +354,11 @@
     "id": 4,
     "title": "집밥뚝딱 강남점",
     "description": "집밥뚝딱 강남점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -455,7 +471,11 @@
     "id": 5,
     "title": "집밥뚝딱 용산점",
     "description": "집밥뚝딱 용산점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -568,7 +588,11 @@
     "id": 6,
     "title": "집밥뚝딱 홍대점",
     "description": "집밥뚝딱 홍대점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -681,7 +705,11 @@
     "id": 7,
     "title": "집밥뚝딱 남구로점",
     "description": "집밥뚝딱 남구로점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -794,7 +822,11 @@
     "id": 8,
     "title": "집밥뚝딱 광명점",
     "description": "집밥뚝딱 광명점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -907,7 +939,11 @@
     "id": 9,
     "title": "집밥뚝딱 철산점",
     "description": "집밥뚝딱 철산점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,
@@ -1020,7 +1056,11 @@
     "id": 10,
     "title": "집밥뚝딱 여의도점",
     "description": "집밥뚝딱 여의도점입니다.",
-    "images": ["/images/buda.PNG", "/images/darkdory.PNG", "/images/jungoal.PNG"],
+    "images": [
+      "/images/buda.PNG",
+      "/images/darkdory.PNG",
+      "/images/jungoal.PNG"
+    ],
     "menus": [
       {
         "id": 1,

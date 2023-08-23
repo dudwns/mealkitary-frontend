@@ -1,8 +1,8 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Layout from "@/components/layout";
-import Nav from "@/components/HeaderBar";
-import TabBar from "@/components/TabBar";
+import Nav from "@/components/headerBar";
+import TabBar from "@/components/tabBar";
 import { useRouter } from "next/router";
 import { ReserveProp } from "@/libs/recoilState";
 import { useEffect, useState } from "react";
@@ -35,9 +35,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
       {
         headers: {
-          Authorization: `Basic ${Buffer.from(`${process.env.TOSS_PAYMENTS_SECRET_KEY}:`).toString(
-            "base64"
-          )}`,
+          Authorization: `Basic ${Buffer.from(
+            `${process.env.TOSS_PAYMENTS_SECRET_KEY}:`
+          ).toString("base64")}`,
         },
       }
     );
@@ -69,7 +69,9 @@ export default function SuccessPage({ payment }: Props) {
   useEffect(() => {
     if (router.query.reserveInfo) {
       try {
-        setReserveInfo(JSON.parse(decodeURIComponent(String(router.query.reserveInfo))));
+        setReserveInfo(
+          JSON.parse(decodeURIComponent(String(router.query.reserveInfo)))
+        );
       } catch (error) {
         console.error("Error parsing reserveInfo:", error);
       }
@@ -79,7 +81,7 @@ export default function SuccessPage({ payment }: Props) {
   return (
     <Layout>
       <Nav backBtn={true}>
-        <div>예약 확인서</div>
+        <div className="text-white">예약 확인서</div>
       </Nav>
 
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
@@ -106,7 +108,9 @@ export default function SuccessPage({ payment }: Props) {
                   </div>
                   <div className="text-xs text-gray-500">제품 설명</div>
                   <div className="flex items-center justify-between">
-                    <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
+                    <div className="text-sm">
+                      {menu?.totalPrice.toLocaleString()}원
+                    </div>
                     <div className="text-sm">x{menu?.count}</div>
                   </div>
                 </div>
@@ -122,7 +126,11 @@ export default function SuccessPage({ payment }: Props) {
               <div>
                 {shopList[0].image ? (
                   <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
-                    <Image src={shopList[0].image} alt="지점 이미지" layout="fill" />
+                    <Image
+                      src={shopList[0].image}
+                      alt="지점 이미지"
+                      layout="fill"
+                    />
                   </div>
                 ) : (
                   <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>

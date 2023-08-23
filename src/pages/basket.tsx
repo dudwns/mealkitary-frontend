@@ -1,17 +1,20 @@
 import Layout from "@/components/layout";
-import TabBar from "@/components/TabBar";
+import TabBar from "@/components/tabBar";
 import { reserveInfoState, totalPriceState } from "@/libs/recoilState";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { useEffect, useRef, useState } from "react";
-import { PaymentWidgetInstance, loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
+import {
+  PaymentWidgetInstance,
+  loadPaymentWidget,
+} from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useAsync } from "react-use";
 import { cls } from "@/libs/utils";
 import "react-datepicker/dist/react-datepicker.css";
-import DatePickerComponent from "@/components/DatePicker";
+import DatePickerComponent from "@/components/datePicker";
 import { useRouter } from "next/router";
-import Header from "@/components/HeaderBar";
+import Header from "@/components/headerBar";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { List, ListItemButton } from "@mui/material";
@@ -35,9 +38,15 @@ export default function Pocket() {
   > | null>(null);
 
   useAsync(async () => {
-    const paymentWidget = await loadPaymentWidget(clientKey as string, "@@ANONYMOUS");
+    const paymentWidget = await loadPaymentWidget(
+      clientKey as string,
+      "@@ANONYMOUS"
+    );
 
-    const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget", price);
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+      "#payment-widget",
+      price
+    );
 
     paymentWidgetRef.current = paymentWidget;
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
@@ -50,7 +59,10 @@ export default function Pocket() {
       return;
     }
 
-    paymentMethodsWidget.updateAmount(price, paymentMethodsWidget.UPDATE_REASON.COUPON);
+    paymentMethodsWidget.updateAmount(
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON
+    );
   }, [price]);
 
   const rotationPickup = pickup ? "180deg" : "0deg";
@@ -81,7 +93,11 @@ export default function Pocket() {
                   <div>
                     {menu.image ? (
                       <div className="w-16 h-16 rounded-lg  mr-4 relative overflow-hidden">
-                        <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
+                        <Image
+                          src={menu.image}
+                          alt="메뉴 이미지"
+                          layout="fill"
+                        />
                       </div>
                     ) : (
                       <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
@@ -96,7 +112,9 @@ export default function Pocket() {
                     </div>
                     <div className="text-xs text-gray-500">제품 설명</div>
                     <div className="flex items-center justify-between">
-                      <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
+                      <div className="text-sm">
+                        {menu?.totalPrice.toLocaleString()}원
+                      </div>
                       <div className="text-sm">x{menu?.count}</div>
                     </div>
                   </div>
@@ -125,7 +143,10 @@ export default function Pocket() {
               <li key={index}>
                 <div className="flex relative w-full">
                   <label className="w-full py-4" htmlFor={String(data?.id)}>
-                    <input className="mr-4 text-blue-600 focus:ring-0" type="checkbox" />
+                    <input
+                      className="mr-4 text-blue-600 focus:ring-0"
+                      type="checkbox"
+                    />
                     {data?.option}
                   </label>
                 </div>
@@ -136,7 +157,9 @@ export default function Pocket() {
 
         <div className="flex justify-between border-b py-6">
           <div className="text-lg font-bold">총 결제금액</div>
-          <div className="text-lg font-bold">{totalPrice.toLocaleString()}원</div>
+          <div className="text-lg font-bold">
+            {totalPrice.toLocaleString()}원
+          </div>
         </div>
 
         <div>
@@ -154,7 +177,11 @@ export default function Pocket() {
               }}
               style={pickupSvgStyle}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
             </svg>
           </div>
           <div
@@ -180,7 +207,11 @@ export default function Pocket() {
               onClick={() => setIsPayment((prev) => !prev)}
               style={paymentSvgStyle}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
             </svg>
           </div>
 
@@ -198,7 +229,9 @@ export default function Pocket() {
       <TabBar
         text="결제하기"
         onClick={async () => {
-          const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo));
+          const serializedReserveInfo = encodeURIComponent(
+            JSON.stringify(reserveInfo)
+          );
           const paymentWidget = paymentWidgetRef.current;
           try {
             await paymentWidget?.requestPayment({
