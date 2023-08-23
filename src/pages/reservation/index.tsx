@@ -1,9 +1,8 @@
 import Layout from "@/components/layout";
-import shopList from "@/data/shopList.json";
 import { useState } from "react";
 import Image from "next/image";
-import Header from "@/components/HeaderBar";
-import NavBar from "@/components/NavBar";
+import Header from "@/components/headerBar";
+import NavBar from "@/components/navBar";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -55,7 +54,9 @@ export default function Home() {
               className="w-full h-6 bg-white rounded-xl p-6 text-sm pl-8 focus:outline-none"
               placeholder="존슨탕? 춘천닭갈비?"
               onFocus={(event) => (event.target.placeholder = "")}
-              onBlur={(event) => (event.target.placeholder = "존슨탕? 춘천닭갈비?")}
+              onBlur={(event) =>
+                (event.target.placeholder = "존슨탕? 춘천닭갈비?")
+              }
             ></input>
           </form>
         </div>
@@ -70,13 +71,19 @@ export default function Home() {
                   <div className="flex">
                     {shop.image ? (
                       <div className="w-14 h-14 relative rounded-lg mr-4 overflow-hidden border border-gray-300">
-                        <Image src={shop.image} alt="지점 이미지" layout="fill" />
+                        <Image
+                          src={shop.image}
+                          alt="지점 이미지"
+                          layout="fill"
+                        />
                       </div>
                     ) : (
                       <div className="w-14 h-14 bg-gray-300 rounded-lg mr-2"></div>
                     )}
                     <div className="flex flex-col ">
-                      <ListItemText className="text-sm mb-2 font-bold">{shop.title}</ListItemText>
+                      <ListItemText className="text-sm mb-2 font-bold">
+                        {shop.title}
+                      </ListItemText>
                       <div className="flex items-center">
                         <svg
                           className="h-4 w-4 cursor-pointer text-yellow-300"
