@@ -1,21 +1,21 @@
-import Layout from "@/components/layout";
-import TabBar from "@/components/TabBar";
-import { reserveInfoState, totalPriceState } from "@/libs/recoilState";
-import Image from "next/image";
-import { useRecoilState } from "recoil";
-import { useEffect, useRef, useState } from "react";
-import { PaymentWidgetInstance, loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
-import { nanoid } from "nanoid";
-import { useAsync } from "react-use";
-import { cls } from "@/libs/utils";
-import "react-datepicker/dist/react-datepicker.css";
-import DatePickerComponent from "@/components/DatePicker";
-import { useRouter } from "next/router";
-import Header from "@/components/HeaderBar";
-import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import { List, ListItemButton } from "@mui/material";
-import addMenuData from "@/data/addMenu.json";
+import Layout from '@/components/layout';
+import TabBar from '@/components/TabBar';
+import { reserveInfoState, totalPriceState } from '@/libs/recoilState';
+import Image from 'next/image';
+import { useRecoilState } from 'recoil';
+import { useEffect, useRef, useState } from 'react';
+import { PaymentWidgetInstance, loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
+import { nanoid } from 'nanoid';
+import { useAsync } from 'react-use';
+import { cls } from '@/libs/utils';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePickerComponent from '@/components/DatePicker';
+import { useRouter } from 'next/router';
+import Header from '@/components/HeaderBar';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import { List, ListItemButton } from '@mui/material';
+import addMenuData from '@/data/addMenu.json';
 
 export default function Pocket() {
   const router = useRouter();
@@ -30,14 +30,12 @@ export default function Pocket() {
   const clientKey = process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY;
 
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
-  const paymentMethodsWidgetRef = useRef<ReturnType<
-    PaymentWidgetInstance["renderPaymentMethods"]
-  > | null>(null);
+  const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance['renderPaymentMethods']> | null>(null);
 
   useAsync(async () => {
-    const paymentWidget = await loadPaymentWidget(clientKey as string, "@@ANONYMOUS");
+    const paymentWidget = await loadPaymentWidget(clientKey as string, '@@ANONYMOUS');
 
-    const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget", price);
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods('#payment-widget', price);
 
     paymentWidgetRef.current = paymentWidget;
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
@@ -53,17 +51,17 @@ export default function Pocket() {
     paymentMethodsWidget.updateAmount(price, paymentMethodsWidget.UPDATE_REASON.COUPON);
   }, [price]);
 
-  const rotationPickup = pickup ? "180deg" : "0deg";
-  const rotationPayment = isPayment ? "180deg" : "0deg";
+  const rotationPickup = pickup ? '180deg' : '0deg';
+  const rotationPayment = isPayment ? '180deg' : '0deg';
 
   const pickupSvgStyle = {
     transform: `rotate(${rotationPickup})`,
-    transition: "transform 0.5s",
+    transition: 'transform 0.5s',
   };
 
   const paymentSvgStyle = {
     transform: `rotate(${rotationPayment})`,
-    transition: "transform 0.5s",
+    transition: 'transform 0.5s',
   };
 
   return (
@@ -90,9 +88,7 @@ export default function Pocket() {
                   <div className="flex flex-col justify-between w-full">
                     <div className="flex items-center">
                       <div className="text-sm font-bold mr-2">{menu?.name}</div>
-                      <div className="text-xs text-gray-500">
-                        가격: {menu?.price.toLocaleString()}원
-                      </div>
+                      <div className="text-xs text-gray-500">가격: {menu?.price.toLocaleString()}원</div>
                     </div>
                     <div className="text-xs text-gray-500">제품 설명</div>
                     <div className="flex items-center justify-between">
@@ -106,10 +102,7 @@ export default function Pocket() {
           ))}
         </List>
 
-        <ListItemButton
-          className="mb-10 mt-4 text-center flex flex-col items-center "
-          onClick={() => router.back()}
-        >
+        <ListItemButton className="mb-10 mt-4 text-center flex flex-col items-center " onClick={() => router.back()}>
           <BottomNavigationAction
             className="animate-bounce text-blue-600 pointer-events-none"
             label="더 담으러 가기"
@@ -158,17 +151,14 @@ export default function Pocket() {
             </svg>
           </div>
           <div
-            className={cls(
-              "transition-all duration-500",
-              pickup ? "opacity-100 h-250" : "opacity-0 h-0 duration-0"
-            )}
+            className={cls('transition-all duration-500', pickup ? 'opacity-100 h-250' : 'opacity-0 h-0 duration-0')}
           >
             <DatePickerComponent />
           </div>
         </div>
 
         <div>
-          <div className={cls("flex justify-between  py-6  border-y ")}>
+          <div className={cls('flex justify-between  py-6  border-y ')}>
             <div className="text-lg font-bold">결제 선택</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -186,8 +176,8 @@ export default function Pocket() {
 
           <div
             className={cls(
-              "flex flex-col mb-5  transition-all duration-500",
-              isPayment ? "opacity-100 h-250 " : "opacity-0 h-0 duration-0"
+              'flex flex-col mb-5  transition-all duration-500',
+              isPayment ? 'opacity-100 h-250 ' : 'opacity-0 h-0 duration-0',
             )}
           >
             <div id="payment-widget" />
@@ -207,8 +197,8 @@ export default function Pocket() {
                 reserveInfo.length === 1
                   ? reserveInfo[0].name
                   : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
-              customerName: "김영준",
-              customerEmail: "customer123@gmail.com",
+              customerName: '김영준',
+              customerEmail: 'customer123@gmail.com',
               successUrl: `${window.location.origin}/success?reserveInfo=${serializedReserveInfo}`,
               failUrl: `${window.location.origin}/fail`,
             });

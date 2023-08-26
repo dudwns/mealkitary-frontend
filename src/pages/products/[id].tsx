@@ -1,11 +1,11 @@
-import Layout from "@/components/layout";
-import TabBar from "@/components/TabBar";
-import { useRouter } from "next/router";
-import shop from "@/data/shop.json";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { totalPriceState, totalCountState, reserveInfoState } from "@/libs/recoilState";
-import { useSetRecoilState } from "recoil";
+import Layout from '@/components/layout';
+import TabBar from '@/components/TabBar';
+import { useRouter } from 'next/router';
+import shop from '@/data/shop.json';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { totalPriceState, totalCountState, reserveInfoState } from '@/libs/recoilState';
+import { useSetRecoilState } from 'recoil';
 
 interface OptionsProp {
   id: number;
@@ -47,12 +47,7 @@ export default function Product() {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              ></path>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
             </svg>
           </button>
           {menuData?.image ? (

@@ -1,16 +1,16 @@
-import Layout from "@/components/layout";
-import shopList from "@/data/shopList.json";
-import { useState } from "react";
-import Image from "next/image";
-import Header from "@/components/HeaderBar";
-import NavBar from "@/components/NavBar";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import Layout from '@/components/layout';
+import shopList from '@/data/shopList.json';
+import { useState } from 'react';
+import Image from 'next/image';
+import Header from '@/components/HeaderBar';
+import NavBar from '@/components/NavBar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
-import { useQuery } from "react-query";
-import { getShops } from "@/libs/api";
+import { useQuery } from 'react-query';
+import { getShops } from '@/libs/api';
 
 export interface ShopListProp {
   id: number;
@@ -21,7 +21,7 @@ export interface ShopListProp {
 
 export default function Home() {
   const [shopListData, setShopListData] = useState<ShopListProp[]>();
-  const { isLoading, data, error } = useQuery("shopList", getShops, {
+  const { isLoading, data, error } = useQuery('shopList', getShops, {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: (data) => {
@@ -54,8 +54,8 @@ export default function Home() {
             <input
               className="w-full h-6 bg-white rounded-xl p-6 text-sm pl-8 focus:outline-none"
               placeholder="존슨탕? 춘천닭갈비?"
-              onFocus={(event) => (event.target.placeholder = "")}
-              onBlur={(event) => (event.target.placeholder = "존슨탕? 춘천닭갈비?")}
+              onFocus={(event) => (event.target.placeholder = '')}
+              onBlur={(event) => (event.target.placeholder = '존슨탕? 춘천닭갈비?')}
             ></input>
           </form>
         </div>

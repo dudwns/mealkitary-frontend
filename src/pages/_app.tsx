@@ -1,7 +1,7 @@
-import type { AppProps } from "next/app";
-import "../styles/globals.css";
-import { RecoilRoot } from "recoil";
-import { QueryClient, QueryClientProvider } from "react-query";
+import type { AppProps } from 'next/app';
+import '../styles/globals.css';
+import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const client = new QueryClient();
 
