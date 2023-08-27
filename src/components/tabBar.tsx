@@ -4,12 +4,13 @@ interface TabBarProps {
   [key: string]: any;
 }
 
-export default function TabBar({ text, contain, onClick, price, count }: TabBarProps) {
+export default function TabBar({ text, contain, onClick, price, count, disable = false }: TabBarProps) {
   return (
     <div className="bg-white max-w-xl text-white border-t-4 border-gray-200  fixed bottom-0 w-full px-10 py-3 flex justify-between items-center">
       <button
         className="bg-blue-600 w-full py-2 rounded-lg flex items-center justify-around hover:bg-blue-700 "
         onClick={onClick}
+        disabled={disable}
       >
         {contain ? (
           <>

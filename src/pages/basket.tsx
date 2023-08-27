@@ -97,9 +97,7 @@ export default function Pocket() {
         products,
         reservedAt: '2023-08-28T18:30',
       };
-
       const response = await axios.post(`${API_URL}/reservations`, requestData);
-      setIsLoading(false);
       if (response.status === 201) {
         uuid = response.headers['location'].slice(37);
         await paymentHandler();
@@ -252,7 +250,7 @@ export default function Pocket() {
         </div>
       </div>
 
-      <TabBar text="결제하기" onClick={createReserve} />
+      <TabBar text="결제하기" onClick={createReserve} disable={isLoading} />
     </Layout>
   );
 }
