@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import { useEffect, useRef, useState } from 'react';
 import { PaymentWidgetInstance, loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
-import { nanoid } from 'nanoid';
 import { useAsync } from 'react-use';
 import { cls } from '@/libs/utils';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -40,7 +39,7 @@ export default function Pocket() {
     isLoading: menuLoading,
     data,
     error,
-  } = useQuery('menuList', () => getReserveTime({ shopId: Number(shopId) }), {
+  } = useQuery('menuList', () => getReserveTime({ id: Number(shopId) }), {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: ({ data }) => {},
@@ -118,11 +117,11 @@ export default function Pocket() {
           reserveInfo.length === 1 ? reserveInfo[0].name : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
         customerName: '김영준',
         customerEmail: 'dudwns99@gmail.com',
-        successUrl: `${window.location.origin}/success?`,
+        successUrl: `${window.location.origin}/success`,
         failUrl: `${window.location.origin}/fail`,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

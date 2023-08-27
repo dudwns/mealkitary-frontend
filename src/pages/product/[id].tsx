@@ -37,7 +37,7 @@ export default function Product() {
   const [menuCount, setMenuCount] = useState(1);
   const [price, setPrice] = useState(0);
 
-  const { isLoading, data, error } = useQuery('menuList', () => getProducts({ shopId: Number(shopId) }), {
+  const { isLoading, data, error } = useQuery('menuList', () => getProducts({ id: Number(shopId) }), {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: ({ data }) => {

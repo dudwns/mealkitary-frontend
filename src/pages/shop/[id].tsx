@@ -41,7 +41,7 @@ export default function Shop() {
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [totalCount, setTotalCount] = useRecoilState(totalCountState);
 
-  const { isLoading, data, error } = useQuery('menuList', () => getProducts({ shopId: SHOP_ID }), {
+  const { isLoading, data, error } = useQuery('menuList', () => getProducts({ id: SHOP_ID }), {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: ({ data }) => {

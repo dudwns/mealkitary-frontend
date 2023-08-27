@@ -7,18 +7,28 @@ export async function getShops() {
 }
 
 interface GetProductsProps {
-  shopId: number;
+  id: number;
 }
 
-export async function getProducts({ shopId }: GetProductsProps) {
-  return await axios.get(`${API_URL}/shops/${shopId}/products`, {
-    params: { shopId },
+interface GetReservationsProps {
+  uuid: string;
+}
+
+export async function getProducts({ id }: GetProductsProps) {
+  return await axios.get(`${API_URL}/shops/${id}/products`, {
+    params: { id },
   });
 }
 
-export async function getReserveTime({ shopId }: GetProductsProps) {
-  return await axios.get(`${API_URL}/shops/${shopId}/reservable-time`, {
-    params: { shopId },
+export async function getReserveTime({ id }: GetProductsProps) {
+  return await axios.get(`${API_URL}/shops/${id}/reservable-time`, {
+    params: { id },
+  });
+}
+
+export async function getReservation({ uuid }: GetReservationsProps) {
+  return await axios.get(`${API_URL}/reservations/${uuid}`, {
+    params: { uuid },
   });
 }
 
