@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { ReserveProp } from '@/libs/recoilState';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { ShopListProp } from './reservation';
+import { ShopsProps } from './reservation';
 import shopList from '@/data/shopList.json';
 
 interface Payment {
@@ -20,6 +20,8 @@ interface Payment {
   method: '카드' | '가상계좌' | '계좌이체';
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const {
     query: { paymentKey, orderId, amount },
@@ -27,10 +29,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const { data: payment } = await axios.post<Payment>(
-      'https://api.tosspayments.com/v1/payments/confirm',
+      `${API_URL}/reservations/${orderId}/pay`,
       {
         paymentKey,
-        orderId,
         amount,
       },
       {
@@ -62,7 +63,6 @@ interface Props {
 export default function SuccessPage({ payment }: Props) {
   const router = useRouter();
   const [reserveInfo, setReserveInfo] = useState<ReserveProp[]>();
-  const [shopListData, setShopListData] = useState<ShopListProp[]>(shopList);
 
   useEffect(() => {
     if (router.query.reserveInfo) {
@@ -77,14 +77,14 @@ export default function SuccessPage({ payment }: Props) {
   return (
     <Layout>
       <Nav backBtn={true}>
-        <div>예약 확인서</div>
+        <div className="text-white">예약 확인서</div>
       </Nav>
 
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
         <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
         <ul className="flex flex-col ">
           {reserveInfo?.map((menu, index) => (
-            <li key={menu.id} className="py-4 border-b">
+            <li key={menu.productId} className="py-4 border-b">
               <div className="flex">
                 <div>
                   {menu.image ? (
@@ -92,7 +92,9 @@ export default function SuccessPage({ payment }: Props) {
                       <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
                     </div>
                   ) : (
-                    <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                    <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3 flex justify-center items-center">
+                      <span className="text-xs text-white">이미지 없음</span>
+                    </div>
                   )}
                 </div>
                 <div className="flex flex-col justify-between w-full">
@@ -102,7 +104,7 @@ export default function SuccessPage({ payment }: Props) {
                   </div>
                   <div className="text-xs text-gray-500">제품 설명</div>
                   <div className="flex items-center justify-between">
-                    <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
+                    <div className="text-sm">{(menu?.count * menu?.price).toLocaleString()}원</div>
                     <div className="text-sm">x{menu?.count}</div>
                   </div>
                 </div>

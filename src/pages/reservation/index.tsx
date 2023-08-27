@@ -1,5 +1,4 @@
 import Layout from '@/components/layout';
-import shopList from '@/data/shopList.json';
 import { useState } from 'react';
 import Image from 'next/image';
 import Header from '@/components/HeaderBar';
@@ -12,20 +11,22 @@ import ListItemText from '@mui/material/ListItemText';
 import { useQuery } from 'react-query';
 import { getShops } from '@/libs/api';
 
-export interface ShopListProp {
+export interface ShopProps {
   id: number;
   image: string;
   title: string;
   score: number;
 }
 
+export type ShopsProps = ShopProps[];
+
 export default function Home() {
-  const [shopListData, setShopListData] = useState<ShopListProp[]>();
+  const [shopListData, setShopListData] = useState<ShopsProps>();
   const { isLoading, data, error } = useQuery('shopList', getShops, {
     refetchOnWindowFocus: false,
     retry: 0,
-    onSuccess: (data) => {
-      setShopListData(data.data);
+    onSuccess: ({ data }) => {
+      setShopListData(data);
     },
     onError: (e: Error) => {
       console.error(e.message);
@@ -63,7 +64,7 @@ export default function Home() {
       <div className="flex flex-col mt-16 border-t-2 h-[64rem] shadow-md bg-white">
         <div className="text-lg font-bold mt-4 ml-8">예약</div>
         <List className="flex flex-col  divide-y ">
-          {shopListData?.map((shop: ShopListProp) => (
+          {shopListData?.map((shop: ShopProps) => (
             <div key={shop.id}>
               <ListItemButton component="a" href={`/shop/${shop.id}`}>
                 <ListItem className="py-2">
@@ -73,7 +74,9 @@ export default function Home() {
                         <Image src={shop.image} alt="지점 이미지" layout="fill" />
                       </div>
                     ) : (
-                      <div className="w-14 h-14 bg-gray-300 rounded-lg mr-2"></div>
+                      <div className="w-14 h-14 bg-gray-300 rounded-lg mr-2 flex justify-center items-center">
+                        <span className="text-xs text-white">이미지 없음</span>
+                      </div>
                     )}
                     <div className="flex flex-col ">
                       <ListItemText className="text-sm mb-2 font-bold">{shop.title}</ListItemText>
