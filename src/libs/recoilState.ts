@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export interface ReserveProp {
   id: number;
@@ -10,26 +10,26 @@ export interface ReserveProp {
 }
 
 export const totalPriceState = atom({
-  key: "totalPriceState",
+  key: 'totalPriceState',
   default: 0,
 });
 
 export const totalCountState = atom({
-  key: "totalCountState",
+  key: 'totalCountState',
   default: 0,
 });
 
 export const reserveInfoState = atom<ReserveProp[]>({
-  key: "reserveInfoState",
+  key: 'reserveInfoState',
   default: [],
 });
 
 export const pickupDateState = atom<Date | null>({
-  key: "pickupDateState",
+  key: 'pickupDateState',
   default: null,
 });
 
 export const pickupTimeState = atom<Date>({
-  key: "pickupTimeState",
+  key: 'pickupTimeState',
   default: undefined,
 });

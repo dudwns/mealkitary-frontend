@@ -1,14 +1,14 @@
-import axios from "axios";
-import { GetServerSideProps } from "next";
-import Layout from "@/components/layout";
-import Nav from "@/components/headerBar";
-import TabBar from "@/components/tabBar";
-import { useRouter } from "next/router";
-import { ReserveProp } from "@/libs/recoilState";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { ShopListProp } from "./reservation";
-import shopList from "@/data/shopList.json";
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
+import Layout from '@/components/layout';
+import Nav from '@/components/headerBar';
+import TabBar from '@/components/tabBar';
+import { useRouter } from 'next/router';
+import { ReserveProp } from '@/libs/recoilState';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { ShopListProp } from './reservation';
+import shopList from '@/data/shopList.json';
 
 interface Payment {
   orderName: string;
@@ -17,7 +17,7 @@ interface Payment {
     url: string;
   };
   totalAmount: number;
-  method: "카드" | "가상계좌" | "계좌이체";
+  method: '카드' | '가상계좌' | '계좌이체';
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const { data: payment } = await axios.post<Payment>(
-      "https://api.tosspayments.com/v1/payments/confirm",
+      'https://api.tosspayments.com/v1/payments/confirm',
       {
         paymentKey,
         orderId,
@@ -35,18 +35,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
       {
         headers: {
-          Authorization: `Basic ${Buffer.from(
-            `${process.env.TOSS_PAYMENTS_SECRET_KEY}:`
-          ).toString("base64")}`,
+          Authorization: `Basic ${Buffer.from(`${process.env.TOSS_PAYMENTS_SECRET_KEY}:`).toString('base64')}`,
         },
-      }
+      },
     );
 
     return {
       props: { payment },
     };
   } catch (err: any) {
-    console.error("err", err);
+    console.error('err', err);
 
     return {
       redirect: {
@@ -69,11 +67,9 @@ export default function SuccessPage({ payment }: Props) {
   useEffect(() => {
     if (router.query.reserveInfo) {
       try {
-        setReserveInfo(
-          JSON.parse(decodeURIComponent(String(router.query.reserveInfo)))
-        );
+        setReserveInfo(JSON.parse(decodeURIComponent(String(router.query.reserveInfo))));
       } catch (error) {
-        console.error("Error parsing reserveInfo:", error);
+        console.error('Error parsing reserveInfo:', error);
       }
     }
   }, []);
@@ -102,15 +98,11 @@ export default function SuccessPage({ payment }: Props) {
                 <div className="flex flex-col justify-between w-full">
                   <div className="flex items-center">
                     <div className="text-sm font-bold mr-2">{menu?.name}</div>
-                    <div className="text-xs text-gray-500">
-                      가격: {menu?.price.toLocaleString()}원
-                    </div>
+                    <div className="text-xs text-gray-500">가격: {menu?.price.toLocaleString()}원</div>
                   </div>
                   <div className="text-xs text-gray-500">제품 설명</div>
                   <div className="flex items-center justify-between">
-                    <div className="text-sm">
-                      {menu?.totalPrice.toLocaleString()}원
-                    </div>
+                    <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
                     <div className="text-sm">x{menu?.count}</div>
                   </div>
                 </div>
@@ -126,11 +118,7 @@ export default function SuccessPage({ payment }: Props) {
               <div>
                 {shopList[0].image ? (
                   <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
-                    <Image
-                      src={shopList[0].image}
-                      alt="지점 이미지"
-                      layout="fill"
-                    />
+                    <Image src={shopList[0].image} alt="지점 이미지" layout="fill" />
                   </div>
                 ) : (
                   <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
@@ -159,12 +147,7 @@ export default function SuccessPage({ payment }: Props) {
 
           <div className="flex justify-around py-4">
             <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path
                   fill-rule="evenodd"
                   d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
@@ -174,12 +157,7 @@ export default function SuccessPage({ payment }: Props) {
               <span> 매장 문의</span>
             </div>
             <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path
                   fill-rule="evenodd"
                   d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z"
@@ -194,12 +172,7 @@ export default function SuccessPage({ payment }: Props) {
               <span>지도 보기</span>
             </div>
             <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path
                   fill-rule="evenodd"
                   d="M3 2.25a.75.75 0 01.75.75v.54l1.838-.46a9.75 9.75 0 016.725.738l.108.054a8.25 8.25 0 005.58.652l3.109-.732a.75.75 0 01.917.81 47.784 47.784 0 00.005 10.337.75.75 0 01-.574.812l-3.114.733a9.75 9.75 0 01-6.594-.77l-.108-.054a8.25 8.25 0 00-5.69-.625l-2.202.55V21a.75.75 0 01-1.5 0V3A.75.75 0 013 2.25z"
@@ -209,12 +182,7 @@ export default function SuccessPage({ payment }: Props) {
               <span>주소 복사</span>
             </div>
             <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path
                   fill-rule="evenodd"
                   d="M15.22 6.268a.75.75 0 01.968-.432l5.942 2.28a.75.75 0 01.431.97l-2.28 5.941a.75.75 0 11-1.4-.537l1.63-4.251-1.086.483a11.2 11.2 0 00-5.45 5.174.75.75 0 01-1.199.19L9 12.31l-6.22 6.22a.75.75 0 11-1.06-1.06l6.75-6.75a.75.75 0 011.06 0l3.606 3.605a12.694 12.694 0 015.68-4.973l1.086-.484-4.251-1.631a.75.75 0 01-.432-.97z"
@@ -226,7 +194,7 @@ export default function SuccessPage({ payment }: Props) {
           </div>
         </div>
       </div>
-      <TabBar text="홈" onClick={() => router.push("/")} />
+      <TabBar text="홈" onClick={() => router.push('/')} />
     </Layout>
   );
 }

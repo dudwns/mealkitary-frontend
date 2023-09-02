@@ -1,8 +1,8 @@
-import "swiper/swiper.min.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper";
+import 'swiper/swiper.min.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 interface SliderProp {
   images: string[];
@@ -20,21 +20,15 @@ const Slider = ({ images }: SliderProp) => {
         loop={true}
         pagination={{
           clickable: true,
-          el: ".pagination_fraction",
-          type: "fraction",
+          el: '.pagination_fraction',
+          type: 'fraction',
         }}
         scrollbar={{ draggable: true }}
         navigation
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <Image
-              src={image}
-              className="w-full h-64 object-cover"
-              width={500}
-              height={1}
-              alt="제품 이미지"
-            />
+            <Image src={image} className="w-full h-64 object-cover" width={500} height={1} alt="제품 이미지" />
           </SwiperSlide>
         ))}
         <span className="pagination_fraction  absolute bottom-3 right-3 z-20 bg-black bg-opacity-50 text-white text-base px-4 font-medium rounded-full"></span>

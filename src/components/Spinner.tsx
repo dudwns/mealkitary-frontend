@@ -4,7 +4,7 @@ interface SpinnerProp {
   loading: boolean;
 }
 
-const Spinner = ({ size = 24, color = "#919EAB", loading = true, ...props }: SpinnerProp) => {
+const Spinner = ({ size = 24, color = '#919EAB', loading = true, ...props }: SpinnerProp) => {
   const sizeStyle = {
     width: size,
     height: size,

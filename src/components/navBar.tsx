@@ -1,11 +1,11 @@
-import * as React from "react";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import SearchIcon from "@mui/icons-material/Search";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import FaceIcon from "@mui/icons-material/Face";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import * as React from 'react';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import SearchIcon from '@mui/icons-material/Search';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import FaceIcon from '@mui/icons-material/Face';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default function Nav() {
   const [value, setValue] = React.useState(0);
