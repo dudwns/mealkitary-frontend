@@ -94,7 +94,7 @@ export default function Pocket() {
       const requestData = {
         shopId,
         products,
-        reservedAt: '2023-08-28T18:30',
+        reservedAt: '2023-09-28T18:30',
       };
       const response = await axios.post(`${API_URL}/reservations`, requestData);
       if (response.status === 201) {

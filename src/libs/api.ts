@@ -32,6 +32,10 @@ export async function getReservation({ uuid }: GetReservationsProps) {
   });
 }
 
+// export async function getShops() {
+//   return await axios.get(`/api/shops`);
+// }
+
 // export async function addReservation({ reservedData }: GetProductsProps) {
 //   return await axios.get(`${API_URL}/shops/${shopId}/reservable-time`, {
 //     params: { shopId },
