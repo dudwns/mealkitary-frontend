@@ -4,11 +4,11 @@ import Layout from '@/components/layout';
 import Nav from '@/components/headerBar';
 import TabBar from '@/components/tabBar';
 import { useRouter } from 'next/router';
-import { ReserveProp } from '@/libs/recoilState';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { ShopListProp } from './reservation';
 import shopList from '@/data/shopList.json';
+import { getReservation } from '@/libs/api';
+import { useQuery } from 'react-query';
 
 interface Payment {
   orderName: string;
@@ -20,6 +20,24 @@ interface Payment {
   method: '카드' | '가상계좌' | '계좌이체';
 }
 
+export interface ReserveInfoProps {
+  reservationId: string;
+  shopName: string;
+  description: string;
+  reserveAt: string;
+  status: string;
+  reservedProduct: ReservedProduct[];
+}
+
+export interface ReservedProduct {
+  productId: number;
+  name: string;
+  price: number;
+  count: number;
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const {
     query: { paymentKey, orderId, amount },
@@ -27,10 +45,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const { data: payment } = await axios.post<Payment>(
-      'https://api.tosspayments.com/v1/payments/confirm',
+      `${API_URL}/reservations/${orderId}/pay`,
       {
         paymentKey,
-        orderId,
         amount,
       },
       {
@@ -61,18 +78,20 @@ interface Props {
 
 export default function SuccessPage({ payment }: Props) {
   const router = useRouter();
-  const [reserveInfo, setReserveInfo] = useState<ReserveProp[]>();
-  const [shopListData, setShopListData] = useState<ShopListProp[]>(shopList);
+  const [reserveInfo, setReserveInfo] = useState<ReserveInfoProps>();
+  const uuid = String(router.query.orderId);
 
-  useEffect(() => {
-    if (router.query.reserveInfo) {
-      try {
-        setReserveInfo(JSON.parse(decodeURIComponent(String(router.query.reserveInfo))));
-      } catch (error) {
-        console.error('Error parsing reserveInfo:', error);
-      }
-    }
-  }, []);
+  const { isLoading, data, error } = useQuery('reservation', () => getReservation({ uuid }), {
+    refetchOnWindowFocus: false,
+    retry: 0,
+    onSuccess: ({ data }) => {
+      setReserveInfo(data);
+    },
+    onError: (e: Error) => {
+      console.error(e.message);
+    },
+    enabled: Boolean(uuid),
+  });
 
   return (
     <Layout>
@@ -83,17 +102,18 @@ export default function SuccessPage({ payment }: Props) {
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
         <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
         <ul className="flex flex-col ">
-          {reserveInfo?.map((menu, index) => (
-            <li key={menu.id} className="py-4 border-b">
+          {reserveInfo?.reservedProduct.map((menu, index) => (
+            <li key={menu.productId} className="py-4 border-b">
               <div className="flex">
                 <div>
-                  {menu.image ? (
+                  {/* {menu.image ? (
                     <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
                       <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
                     </div>
-                  ) : (
-                    <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
-                  )}
+                  ) : ( */}
+                  <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3 flex justify-center items-center">
+                    <span className="text-xs text-white">이미지 없음</span>
+                  </div>
                 </div>
                 <div className="flex flex-col justify-between w-full">
                   <div className="flex items-center">
@@ -102,7 +122,7 @@ export default function SuccessPage({ payment }: Props) {
                   </div>
                   <div className="text-xs text-gray-500">제품 설명</div>
                   <div className="flex items-center justify-between">
-                    <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
+                    <div className="text-sm">{(menu?.count * menu?.price).toLocaleString()}원</div>
                     <div className="text-sm">x{menu?.count}</div>
                   </div>
                 </div>
@@ -127,7 +147,7 @@ export default function SuccessPage({ payment }: Props) {
             </div>
 
             <div className="flex flex-col justify-between">
-              <div className="text-sm">집밥뚝딱 구로점</div>
+              <div className="text-sm">{reserveInfo?.shopName}</div>
               <div className="text-xs">주소</div>
               <div className="text-xs text-blue-600">지도로 보기</div>
             </div>
@@ -138,11 +158,11 @@ export default function SuccessPage({ payment }: Props) {
           <div className="font-bold text-lg ">픽업 정보</div>
           <div className="flex justify-between border-b py-2">
             <div className="text-base">픽업 날짜</div>
-            <div className="text-base text-gray-500">2023.06.13</div>
+            <div className="text-base text-gray-500">{reserveInfo?.reserveAt.slice(0, 10)}</div>
           </div>
           <div className="flex justify-between border-b py-2 mb-2">
             <div className="text-base">픽업 시간</div>
-            <div className="text-base text-gray-500">오후 9:00</div>
+            <div className="text-base text-gray-500">{reserveInfo?.reserveAt.slice(11, 16)}</div>
           </div>
 
           <div className="flex justify-around py-4">

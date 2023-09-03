@@ -1,12 +1,11 @@
 import { atom } from 'recoil';
 
 export interface ReserveProp {
-  id: number;
+  productId: number;
   name: string;
   price: number;
-  totalPrice: number;
   count: number;
-  image: string;
+  image?: string;
 }
 
 export const totalPriceState = atom({

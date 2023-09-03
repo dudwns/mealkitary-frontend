@@ -7,7 +7,10 @@ import Image from 'next/image';
 import { totalPriceState, totalCountState, reserveInfoState } from '@/libs/recoilState';
 import { useSetRecoilState } from 'recoil';
 import { useQuery } from 'react-query';
-import { getShops } from '@/libs/api';
+
+import { getProducts } from '@/libs/api';
+import { ShopProps } from '../reservation';
+import { MenuProps } from '../shop/[id]';
 
 interface OptionsProp {
   id: number;
@@ -21,31 +24,39 @@ export interface MenuItem {
   price: number;
   description: string;
   options: OptionsProp[];
-}
+} // 더미 타입
 
 export default function Product() {
   const router = useRouter();
-  const [menuData, setMenuData] = useState<MenuItem>();
-  const { isLoading, data, error } = useQuery('menuList', getShops, {
-    refetchOnWindowFocus: false,
-    retry: 0,
-    onSuccess: (data) => {
-      setMenuData(data.data);
-    },
-    onError: (e: Error) => {
-      console.log(e.message);
-    },
-  });
+
+  const { shopId } = router.query;
+  const MENU_ID = Number(router.query.id);
+  const [menu, setMenu] = useState<MenuProps>();
+  const [menuData, setMenuData] = useState<MenuItem>(); // 더미 데이터
+
   const setTotalPrice = useSetRecoilState(totalPriceState);
   const setTotalCount = useSetRecoilState(totalCountState);
   const setReserveInfo = useSetRecoilState(reserveInfoState);
   const [menuCount, setMenuCount] = useState(1);
   const [price, setPrice] = useState(0);
 
+  const { isLoading, data, error } = useQuery('menuList', () => getProducts({ id: Number(shopId) }), {
+    refetchOnWindowFocus: false,
+    retry: 0,
+    onSuccess: ({ data }) => {
+      const fineMenu = data?.find((shop: ShopProps) => shop.id === MENU_ID);
+      setMenu(fineMenu);
+    },
+    onError: (e: Error) => {
+      console.error(e.message);
+    },
+    enabled: Boolean(MENU_ID),
+  });
+
   useEffect(() => {
     setMenuData(shop[0].menus[Number(router.query.id) - 1]);
-    setPrice(menuData?.price!);
-  }, [router, menuData]);
+    setPrice(menu?.price!);
+  }, [router, menu]);
 
   return (
     <Layout>
@@ -71,8 +82,8 @@ export default function Product() {
           )}
         </div>
         <div className="bg-white px-6 py-4  border-b-2 border-gray-300 shadow-md">
-          <div className="text-2xl font-extrabold mb-3">음식 이름</div>
-          <div>음식 세부 정보</div>
+          <div className="text-2xl font-extrabold mb-3">{menu?.name}</div>
+          <div>간단하게 조리해서 먹을 수 있는 {menu?.name}!</div>
         </div>
         <div className="bg-white px-6 py-4 mt-2 border-t-2 shadow-md flex items-center justify-between">
           <div className="text-2xl font-extrabold flex items-center">수량</div>
@@ -80,7 +91,7 @@ export default function Product() {
             <button
               onClick={() => {
                 setMenuCount((prev) => (prev > 1 ? prev - 1 : 1));
-                setPrice((prev) => (menuCount > 1 ? prev - menuData?.price! : menuData?.price!));
+                setPrice((prev) => (menuCount > 1 ? prev - menu?.price! : menu?.price!));
               }}
             >
               -
@@ -89,7 +100,7 @@ export default function Product() {
             <button
               onClick={() => {
                 setMenuCount((prev) => prev + 1);
-                setPrice((prev) => prev + menuData?.price!);
+                setPrice((prev) => prev + menu?.price!);
               }}
             >
               +
@@ -104,12 +115,11 @@ export default function Product() {
             setReserveInfo((prev) => [
               ...prev,
               {
-                id: menuData?.id!,
-                name: menuData?.name!,
-                price: menuData?.price!,
-                totalPrice: price,
+                productId: menu?.id!,
+                name: menu?.name!,
+                price: menu?.price!,
                 count: menuCount,
-                image: menuData?.image!,
+                image: menu?.image!,
               },
             ]);
             router.back();
