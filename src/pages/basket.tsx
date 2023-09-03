@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import { useEffect, useRef, useState } from 'react';
 import { PaymentWidgetInstance, loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
-import { nanoid } from 'nanoid';
 import { useAsync } from 'react-use';
 import { cls } from '@/libs/utils';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -16,18 +15,39 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { List, ListItemButton } from '@mui/material';
 import addMenuData from '@/data/addMenu.json';
+import { useQuery } from 'react-query';
+import { getReserveTime } from '@/libs/api';
+import axios from 'axios';
+import Spinner from '@/components/Spinner';
+
+const clientKey = process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Pocket() {
+  let uuid = '';
   const router = useRouter();
-
+  const shopId = router.query.shopId;
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [reserveInfo, setReserveInfo] = useRecoilState(reserveInfoState);
   const [pickup, setPickup] = useState(false);
   const [isPayment, setIsPayment] = useState(false);
   const [price, setPrice] = useState(totalPrice);
   const [addMenu, setAddMenu] = useState(addMenuData);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const clientKey = process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY;
+  const {
+    isLoading: menuLoading,
+    data,
+    error,
+  } = useQuery('menuList', () => getReserveTime({ id: Number(shopId) }), {
+    refetchOnWindowFocus: false,
+    retry: 0,
+    onSuccess: ({ data }) => {},
+    onError: (e: Error) => {
+      console.error(e.message);
+    },
+    enabled: Boolean(shopId),
+  });
 
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance['renderPaymentMethods']> | null>(null);
@@ -64,6 +84,46 @@ export default function Pocket() {
     transition: 'transform 0.5s',
   };
 
+  const createReserve = async () => {
+    try {
+      setIsLoading(true);
+      const products = reserveInfo.map((product) => {
+        const { image, ...rest } = product;
+        return rest;
+      });
+      const requestData = {
+        shopId,
+        products,
+        reservedAt: '2023-09-28T18:30',
+      };
+      const response = await axios.post(`${API_URL}/reservations`, requestData);
+      if (response.status === 201) {
+        uuid = response.headers['location'].slice(37);
+        await paymentHandler();
+      }
+    } catch (error) {
+      console.error('createReserve', error);
+    }
+    setIsLoading(false);
+  };
+
+  const paymentHandler = async () => {
+    const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo));
+    const paymentWidget = paymentWidgetRef.current;
+    try {
+      await paymentWidget?.requestPayment({
+        orderId: uuid,
+        orderName:
+          reserveInfo.length === 1 ? reserveInfo[0].name : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
+        customerName: '김영준',
+        customerEmail: 'dudwns99@gmail.com',
+        successUrl: `${window.location.origin}/success`,
+        failUrl: `${window.location.origin}/fail`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Layout>
       <Header backBtn={true}>
@@ -82,7 +142,9 @@ export default function Pocket() {
                         <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
                       </div>
                     ) : (
-                      <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                      <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3 flex justify-center items-center">
+                        <span className="text-xs text-white">이미지 없음</span>
+                      </div>
                     )}
                   </div>
                   <div className="flex flex-col justify-between w-full">
@@ -92,7 +154,7 @@ export default function Pocket() {
                     </div>
                     <div className="text-xs text-gray-500">제품 설명</div>
                     <div className="flex items-center justify-between">
-                      <div className="text-sm">{menu?.totalPrice.toLocaleString()}원</div>
+                      <div className="text-sm">{(menu?.count * menu?.price).toLocaleString()}원</div>
                       <div className="text-sm">x{menu?.count}</div>
                     </div>
                   </div>
@@ -110,6 +172,8 @@ export default function Pocket() {
           />
           <div>더 담으러가기</div>
         </ListItemButton>
+
+        <Spinner size={50} color={'#2F56E1'} loading={isLoading} />
 
         <div className="bg-white  mt-2 border-t  border-b border-b-gray-200">
           <div className="text-lg font-bold mt-4 mb-2">추가 옵션 선택</div>
@@ -185,28 +249,7 @@ export default function Pocket() {
         </div>
       </div>
 
-      <TabBar
-        text="결제하기"
-        onClick={async () => {
-          const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo));
-          const paymentWidget = paymentWidgetRef.current;
-          try {
-            await paymentWidget?.requestPayment({
-              orderId: nanoid(),
-              orderName:
-                reserveInfo.length === 1
-                  ? reserveInfo[0].name
-                  : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
-              customerName: '김영준',
-              customerEmail: 'customer123@gmail.com',
-              successUrl: `${window.location.origin}/success?reserveInfo=${serializedReserveInfo}`,
-              failUrl: `${window.location.origin}/fail`,
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        }}
-      />
+      <TabBar text="결제하기" onClick={createReserve} disable={isLoading} />
     </Layout>
   );
 }
