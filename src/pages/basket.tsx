@@ -8,7 +8,7 @@ import { PaymentWidgetInstance, loadPaymentWidget } from '@tosspayments/payment-
 import { useAsync } from 'react-use';
 import { cls } from '@/libs/utils';
 import 'react-datepicker/dist/react-datepicker.css';
-import DatePickerComponent from '@/components/DatePicker';
+import DatePickerComponent from '@/components/DatePickerComponent';
 import { useRouter } from 'next/router';
 import Header from '@/components/HeaderBar';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
