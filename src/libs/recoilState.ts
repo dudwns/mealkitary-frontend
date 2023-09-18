@@ -1,3 +1,4 @@
+import { MessageType } from '@/components/Message';
 import { atom } from 'recoil';
 
 export interface ReserveProp {
@@ -30,5 +31,10 @@ export const pickupDateState = atom<Date | null>({
 
 export const pickupTimeState = atom<Date>({
   key: 'pickupTimeState',
+  default: undefined,
+});
+
+export const messageState = atom<MessageType>({
+  key: 'messageState',
   default: undefined,
 });
