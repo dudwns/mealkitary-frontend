@@ -4,11 +4,13 @@ import Layout from '@/components/layout';
 import Nav from '@/components/HeaderBar';
 import TabBar from '@/components/TabBar';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import shopList from '@/data/shopList.json';
 import { getReservation } from '@/libs/api';
 import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { messageState } from '@/libs/recoilState';
 
 interface Payment {
   orderName: string;
@@ -80,6 +82,8 @@ export default function SuccessPage({ payment }: Props) {
   const router = useRouter();
   const [reserveInfo, setReserveInfo] = useState<ReserveInfoProps>();
   const uuid = String(router.query.orderId);
+  const [message, setMessage] = useRecoilState(messageState);
+  const [approve, setApprove]= useState(false);
 
   const { isLoading, data, error } = useQuery('reservation', () => getReservation({ uuid }), {
     refetchOnWindowFocus: false,
@@ -93,13 +97,23 @@ export default function SuccessPage({ payment }: Props) {
     enabled: Boolean(uuid),
   });
 
+  useEffect(() => {
+    if(message){
+      if(message.title ==='예약이 승인됐어요!'){
+        setApprove(true);
+      }else{
+        router.push('./fail')
+      }
+    }
+  }, [message,router])
   return (
     <Layout>
       <Nav backBtn={true}>
-        <div className="text-white">예약 확인서</div>
+        <div className="text-white">{message ? '예약 확인서' : '예약 대기'}</div>
       </Nav>
 
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
+      <div className="text-2xl font-bold mt-3 mb-2 flex justify-center">{message ? message.title : '예약 대기중...'}</div>
         <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
         <ul className="flex flex-col ">
           {reserveInfo?.reservedProduct.map((menu, index) => (
