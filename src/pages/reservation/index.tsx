@@ -100,7 +100,7 @@ export default function Home() {
           ))}
         </List>
       </div>
-      <NavBar></NavBar>
+      <NavBar/>
     </Layout>
   );
 }
