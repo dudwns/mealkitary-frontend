@@ -8,5 +8,23 @@
   "arrowParens": "always",
   "singleAttributePerLine": true,
   "endOfLine": "auto",
-  "bracketSameLine": true
+  "bracketSameLine": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^react(.*)",
+    "<THIRD_PARTY_MODULES>",
+    "^@pages/(.*)$",
+    "^@components/(.*)$",
+    "^@apis/(.*)$",
+    "^@hooks/(.*)$",
+    "^@store/(.*)$",
+    "^@storage/(.*)$",
+    "^@utils/(.*)$",
+    "^@routes/(.*)$",
+    "^@styles/(.*)$",
+    "^@type/(.*)$",
+    "^@constants/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSortSpecifiers": true
 }
