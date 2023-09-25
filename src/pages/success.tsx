@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 interface SuccessPageProps {
   payment: Payment;
 }
@@ -21,8 +22,6 @@ interface Payment {
   totalAmount: number;
   method: '카드' | '가상계좌' | '계좌이체';
 }
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const {
