@@ -7,7 +7,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-
 import { useQuery } from 'react-query';
 import { getShops } from '@/libs/api';
 
@@ -43,8 +42,7 @@ export default function Home() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-4 h-4 absolute left-2 text-gray-400 "
-          >
+            className="w-4 h-4 absolute left-2 text-gray-400 ">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -56,8 +54,9 @@ export default function Home() {
               className="w-full h-6 bg-white rounded-xl p-6 text-sm pl-8 focus:outline-none"
               placeholder="존슨탕? 춘천닭갈비?"
               onFocus={(event) => (event.target.placeholder = '')}
-              onBlur={(event) => (event.target.placeholder = '존슨탕? 춘천닭갈비?')}
-            ></input>
+              onBlur={(event) =>
+                (event.target.placeholder = '존슨탕? 춘천닭갈비?')
+              }></input>
           </form>
         </div>
       </Header>
@@ -66,12 +65,18 @@ export default function Home() {
         <List className="flex flex-col  divide-y ">
           {shopListData?.map((shop: ShopProps) => (
             <div key={shop.id}>
-              <ListItemButton component="a" href={`/shop/${shop.id}`}>
+              <ListItemButton
+                component="a"
+                href={`/shop/${shop.id}`}>
                 <ListItem className="py-2">
                   <div className="flex">
                     {shop.image ? (
                       <div className="w-14 h-14 relative rounded-lg mr-4 overflow-hidden border border-gray-300">
-                        <Image src={shop.image} alt="지점 이미지" layout="fill" />
+                        <Image
+                          src={shop.image}
+                          alt="지점 이미지"
+                          layout="fill"
+                        />
                       </div>
                     ) : (
                       <div className="w-14 h-14 bg-gray-300 rounded-lg mr-2 flex justify-center items-center">
@@ -79,15 +84,16 @@ export default function Home() {
                       </div>
                     )}
                     <div className="flex flex-col ">
-                      <ListItemText className="text-sm mb-2 font-bold">{shop.title}</ListItemText>
+                      <ListItemText className="text-sm mb-2 font-bold">
+                        {shop.title}
+                      </ListItemText>
                       <div className="flex items-center">
                         <svg
                           className="h-4 w-4 cursor-pointer text-yellow-300"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
                           fill="currentColor"
-                          aria-hidden="true"
-                        >
+                          aria-hidden="true">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                         <span className="text-xs">{shop.score}</span>
@@ -100,7 +106,7 @@ export default function Home() {
           ))}
         </List>
       </div>
-      <NavBar/>
+      <NavBar />
     </Layout>
   );
 }
