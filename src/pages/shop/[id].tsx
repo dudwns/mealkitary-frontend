@@ -1,7 +1,6 @@
 import { useFetchProducts } from '@/apis/product';
 import { useFetchShop } from '@/apis/shop';
-import Slider from '@/components/Slider';
-import TabBar from '@/components/TabBar';
+import { Slider, TabBar } from '@/components';
 import Layout from '@/components/layout';
 import { totalCountState, totalPriceState } from '@/libs/recoilState';
 import List from '@mui/material/List';

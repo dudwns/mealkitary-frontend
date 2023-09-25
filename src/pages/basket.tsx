@@ -2,10 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAsync } from 'react-use';
 import { useFetchReservationTime } from '@/apis/reservation';
+import { HeaderBar, Spinner, TabBar } from '@/components';
 import DatePickerComponent from '@/components/DatePickerComponent';
-import Header from '@/components/HeaderBar';
-import Spinner from '@/components/Spinner';
-import TabBar from '@/components/TabBar';
 import Layout from '@/components/layout';
 import addMenuData from '@/data/addMenu.json';
 import { reserveInfoState, totalPriceState } from '@/libs/recoilState';
@@ -135,9 +133,9 @@ const Basket = () => {
   };
   return (
     <Layout>
-      <Header backBtn={true}>
+      <HeaderBar backBtn={true}>
         <div className="text-white">장바구니</div>
-      </Header>
+      </HeaderBar>
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 pb-12 bg-white">
         <div className="text-lg font-bold mt-4 mb-2">예약 한 메뉴</div>
         <List className="flex flex-col ">

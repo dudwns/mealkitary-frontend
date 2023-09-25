@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFetchProduct } from '@/apis/product';
-import TabBar from '@/components/TabBar';
+import { TabBar } from '@/components';
 import Layout from '@/components/layout';
 import {
   reserveInfoState,

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import Message from '@/components/Message';
+import { Message } from '@/components';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';

@@ -1,6 +1,5 @@
 import { useFetchShops } from '@/apis/shop';
-import Header from '@/components/HeaderBar';
-import NavBar from '@/components/NavBar';
+import { HeaderBar, NavBar } from '@/components';
 import Layout from '@/components/layout';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,7 +12,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <Header backBtn={true}>
+      <HeaderBar backBtn={true}>
         <div className="relative w-[22rem] flex items-center ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +37,7 @@ const Home = () => {
               }></input>
           </form>
         </div>
-      </Header>
+      </HeaderBar>
       <div className="flex flex-col mt-16 border-t-2 h-[64rem] shadow-md bg-white">
         <div className="text-lg font-bold mt-4 ml-8">예약</div>
         <List className="flex flex-col  divide-y ">

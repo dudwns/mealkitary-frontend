@@ -1,6 +1,5 @@
 import { useFetchReservation } from '@/apis/reservation';
-import Nav from '@/components/HeaderBar';
-import TabBar from '@/components/TabBar';
+import { HeaderBar, TabBar } from '@/components';
 import Layout from '@/components/layout';
 import shopList from '@/data/shopList.json';
 import { messageState } from '@/libs/recoilState';
@@ -67,11 +66,11 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
 
   return (
     <Layout>
-      <Nav backBtn={true}>
+      <HeaderBar backBtn={true}>
         <div className="text-white">
           {message ? '예약 확인서' : '예약 대기'}
         </div>
-      </Nav>
+      </HeaderBar>
 
       <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
         <div className="text-2xl font-bold mt-3 mb-2 flex justify-center">
