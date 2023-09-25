@@ -12,9 +12,9 @@ import { useRecoilValue } from 'recoil';
 
 const Shop = () => {
   const router = useRouter();
-  const SHOP_ID = Number(router.query.id);
-  const { shopData } = useFetchShop({ shopId: SHOP_ID });
-  const { productsData } = useFetchProducts({ shopId: SHOP_ID });
+  const shopId = Number(router.query.id);
+  const { shopData } = useFetchShop({ shopId });
+  const { productsData } = useFetchProducts({ shopId });
 
   const totalPrice = useRecoilValue(totalPriceState);
   const totalCount = useRecoilValue(totalCountState);
@@ -65,7 +65,7 @@ const Shop = () => {
             {productsData?.map((product) => (
               <Link
                 key={product.id}
-                href={`/product/${product.id}?shopId=${SHOP_ID}`}>
+                href={`/product/${product.id}?shopId=${shopId}`}>
                 <ListItemButton className="py-4">
                   <div className="flex">
                     {product.image ? (
@@ -102,7 +102,7 @@ const Shop = () => {
             count={totalCount}
             price={totalPrice}
             text={'장바구니 보기'}
-            onClick={() => router.push(`/basket?shopId=${SHOP_ID}`)}
+            onClick={() => router.push(`/basket?shopId=${shopId}`)}
           />
         ) : null}
       </div>

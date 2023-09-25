@@ -26,7 +26,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const Basket = () => {
   let uuid = '';
   const router = useRouter();
-  const shopId = router.query.shopId;
+  const shopId = Number(router.query.shopId);
 
   const totalPrice = useRecoilValue(totalPriceState);
   const reserveInfo = useRecoilValue(reserveInfoState);
@@ -38,7 +38,7 @@ const Basket = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { reservationTimeData } = useFetchReservationTime({
-    shopId: Number(shopId),
+    shopId,
   });
 
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);

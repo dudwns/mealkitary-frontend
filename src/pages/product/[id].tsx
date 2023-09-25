@@ -13,16 +13,16 @@ import { useSetRecoilState } from 'recoil';
 
 const Product = () => {
   const router = useRouter();
-  const { shopId } = router.query;
-  const MENU_ID = Number(router.query.id);
+  const shopId = Number(router.query.shopId);
+  const menuId = Number(router.query.id);
 
   const setTotalPrice = useSetRecoilState(totalPriceState);
   const setTotalCount = useSetRecoilState(totalCountState);
   const setReserveInfo = useSetRecoilState(reserveInfoState);
 
   const { productData } = useFetchProduct({
-    shopId: Number(shopId),
-    menuId: MENU_ID,
+    shopId,
+    menuId,
   });
   const [menuCount, setMenuCount] = useState(1);
   const [price, setPrice] = useState(0);
