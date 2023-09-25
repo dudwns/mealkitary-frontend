@@ -10,6 +10,8 @@ Issue > branch 생성 > kanban 보드 > 개발 > 커밋 > PR > Merge > Issue 닫
 main > develop > feature (기능 단위)
 ```
 
+<br>
+
 ### 브랜치 명명
 
 ```markdown
@@ -19,6 +21,8 @@ ex) feat/#7/page-search
 ```
 
 기능명 작성 시, 단어가 여러 개면 `-` 로 구분하기
+
+<br>
 
 ### Commit 규칙
 
@@ -36,6 +40,8 @@ ex) feat/#7/page-search
 | chore    | 주석, 추가적인 의존성 설치, 리드미 수정, 기타                |
 | style    | CSS만 수정                                                   |
 | fix      | 버그 수정                                                    |
+
+<br>
 
 ### Code 규칙
 
@@ -56,6 +62,8 @@ const 컴포넌트 = ({}: 컴포넌트props) => {
 export default 컴포넌트;
 ```
 
+<br>
+
 ### ISSUE 템플릿
 
 > [Prefix] - 구현 내용 (간단히 한 줄로 작성)
@@ -73,6 +81,8 @@ export default 컴포넌트;
 
 이슈를 읽을 때 참고할 사항 작성
 ```
+
+<br>
 
 ### PR 템플릿
 
