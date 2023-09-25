@@ -1,5 +1,4 @@
 import Layout from '@/components/layout';
-import { useState } from 'react';
 import Image from 'next/image';
 import Header from '@/components/HeaderBar';
 import NavBar from '@/components/NavBar';
@@ -7,36 +6,16 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { useQuery } from 'react-query';
-import { getShops } from '@/libs/api';
-
-export interface ShopProps {
-  id: number;
-  image: string;
-  title: string;
-  score: number;
-}
-
-export type ShopsProps = ShopProps[];
+import { useFetchShops } from '@/apis/shop';
 
 export default function Home() {
-  const [shopListData, setShopListData] = useState<ShopsProps>();
-  const { isLoading, data, error } = useQuery('shopList', getShops, {
-    refetchOnWindowFocus: false,
-    retry: 0,
-    onSuccess: ({ data }) => {
-      setShopListData(data);
-    },
-    onError: (e: Error) => {
-      console.error(e.message);
-    },
-  });
+  const { shopsData } = useFetchShops();
 
   return (
     <Layout>
       <Header backBtn={true}>
         <div className="relative w-[22rem] flex items-center ">
-          <svg //돋보기
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -63,7 +42,7 @@ export default function Home() {
       <div className="flex flex-col mt-16 border-t-2 h-[64rem] shadow-md bg-white">
         <div className="text-lg font-bold mt-4 ml-8">예약</div>
         <List className="flex flex-col  divide-y ">
-          {shopListData?.map((shop: ShopProps) => (
+          {shopsData?.map((shop) => (
             <div key={shop.id}>
               <ListItemButton
                 component="a"
