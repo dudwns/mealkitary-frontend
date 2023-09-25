@@ -1,7 +1,7 @@
 import { MessageType } from '@/components/Message';
 import { atom } from 'recoil';
 
-export interface ReserveProp {
+export interface ReserveProps {
   productId: number;
   name: string;
   price: number;
@@ -19,7 +19,7 @@ export const totalCountState = atom({
   default: 0,
 });
 
-export const reserveInfoState = atom<ReserveProp[]>({
+export const reserveInfoState = atom<ReserveProps[]>({
   key: 'reserveInfoState',
   default: [],
 });

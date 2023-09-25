@@ -1,11 +1,9 @@
 // /src/pages/index.js
-import React, { useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
-import { getMessaging, onMessage, getToken } from "firebase/messaging";
-import { useRecoilState } from "recoil";
-import { messageState } from "@/libs/recoilState";
-
-
+import React, { useEffect, useState } from 'react';
+import { messageState } from '@/libs/recoilState';
+import { initializeApp } from 'firebase/app';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { useRecoilState } from 'recoil';
 
 export interface MessageType {
   title: string;
@@ -19,7 +17,7 @@ const Message = () => {
   const onMessageFCM = async () => {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
-    if (permission !== "granted") return;
+    if (permission !== 'granted') return;
 
     // 이곳에도 아까 위에서 앱 등록할때 받은 'firebaseConfig' 값을 넣어주세요.
     const firebaseApp = initializeApp({
@@ -43,16 +41,18 @@ const Message = () => {
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
           console.log(currentToken);
         } else {
-          console.log("No registration token available. Request permission to generate one.");
+          console.log(
+            'No registration token available. Request permission to generate one.',
+          );
         }
       })
       .catch((err) => {
-        console.log("An error occurred while retrieving token. ", err);
+        console.log('An error occurred while retrieving token. ', err);
       });
 
     // 메세지가 수신되면 역시 콘솔에 출력합니다.
     onMessage(messaging, (payload) => {
-      console.log("Message received. ", payload);
+      console.log('Message received. ', payload);
       setMessage(payload?.data as MessageType);
     });
   };
@@ -61,11 +61,7 @@ const Message = () => {
     onMessageFCM();
   }, []);
 
-  
-
-  return (
-    <></>
-  );
+  return <></>;
 };
 
 export default Message;

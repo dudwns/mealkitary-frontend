@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -10,10 +11,12 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: LayoutProps) {
+const RootLayout = ({ children }: LayoutProps) => {
   return (
     <>
       <div>{children}</div>
     </>
   );
-}
+};
+
+export default RootLayout;

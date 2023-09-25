@@ -1,14 +1,14 @@
-import axios from 'axios';
-import { GetServerSideProps } from 'next';
-import Layout from '@/components/layout';
+import { useFetchReservation } from '@/apis/reservation';
 import Nav from '@/components/HeaderBar';
 import TabBar from '@/components/TabBar';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
+import Layout from '@/components/layout';
 import shopList from '@/data/shopList.json';
-import { useRecoilValue } from 'recoil';
 import { messageState } from '@/libs/recoilState';
-import { useFetchReservation } from '@/apis/reservation';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 
 interface SuccessPageProps {
   payment: Payment;
@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-export default function SuccessPage({ payment }: SuccessPageProps) {
+const SuccessPage = ({ payment }: SuccessPageProps) => {
   const router = useRouter();
   const uuid = String(router.query.orderId);
 
@@ -227,4 +227,6 @@ export default function SuccessPage({ payment }: SuccessPageProps) {
       />
     </Layout>
   );
-}
+};
+
+export default SuccessPage;

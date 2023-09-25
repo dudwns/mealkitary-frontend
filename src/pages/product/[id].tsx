@@ -1,17 +1,17 @@
-import Layout from '@/components/layout';
-import TabBar from '@/components/TabBar';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import {
-  totalPriceState,
-  totalCountState,
-  reserveInfoState,
-} from '@/libs/recoilState';
-import { useSetRecoilState } from 'recoil';
 import { useFetchProduct } from '@/apis/product';
+import TabBar from '@/components/TabBar';
+import Layout from '@/components/layout';
+import {
+  reserveInfoState,
+  totalCountState,
+  totalPriceState,
+} from '@/libs/recoilState';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
-export default function Product() {
+const Product = () => {
   const router = useRouter();
   const { shopId } = router.query;
   const MENU_ID = Number(router.query.id);
@@ -114,4 +114,6 @@ export default function Product() {
       </div>
     </Layout>
   );
-}
+};
+
+export default Product;

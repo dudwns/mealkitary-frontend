@@ -1,8 +1,8 @@
-import type { AppProps } from 'next/app';
-import '../styles/globals.css';
-import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Message from '@/components/Message';
+import type { AppProps } from 'next/app';
+import { RecoilRoot } from 'recoil';
+import '../styles/globals.css';
 
 const client = new QueryClient();
 
@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className="w-full max-w-xl mx-auto">
           <Component {...pageProps} />
         </div>
-        <Message/>
+        <Message />
       </QueryClientProvider>
     </RecoilRoot>
   );

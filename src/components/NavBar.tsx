@@ -1,13 +1,13 @@
 import * as React from 'react';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import FaceIcon from '@mui/icons-material/Face';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import SearchIcon from '@mui/icons-material/Search';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import SearchIcon from '@mui/icons-material/Search';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import FaceIcon from '@mui/icons-material/Face';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-export default function Nav() {
+const NavBar = () => {
   const [value, setValue] = React.useState(0);
   return (
     <BottomNavigation
@@ -16,13 +16,29 @@ export default function Nav() {
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
-      }}
-    >
-      <BottomNavigationAction label="검색" icon={<SearchIcon />} />
-      <BottomNavigationAction label="찜" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="주문" icon={<AddCircleIcon />} />
-      <BottomNavigationAction label="영수증" icon={<ReceiptLongIcon />} />
-      <BottomNavigationAction label="마이페이지" icon={<FaceIcon />} />
+      }}>
+      <BottomNavigationAction
+        label="검색"
+        icon={<SearchIcon />}
+      />
+      <BottomNavigationAction
+        label="찜"
+        icon={<FavoriteIcon />}
+      />
+      <BottomNavigationAction
+        label="주문"
+        icon={<AddCircleIcon />}
+      />
+      <BottomNavigationAction
+        label="영수증"
+        icon={<ReceiptLongIcon />}
+      />
+      <BottomNavigationAction
+        label="마이페이지"
+        icon={<FaceIcon />}
+      />
     </BottomNavigation>
   );
-}
+};
+
+export default NavBar;

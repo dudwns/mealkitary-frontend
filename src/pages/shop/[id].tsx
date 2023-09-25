@@ -1,17 +1,17 @@
-import Layout from '@/components/layout';
-import TabBar from '@/components/TabBar';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { useRecoilValue } from 'recoil';
-import { totalPriceState, totalCountState } from '@/libs/recoilState';
+import { useFetchProducts } from '@/apis/product';
+import { useFetchShop } from '@/apis/shop';
 import Slider from '@/components/Slider';
+import TabBar from '@/components/TabBar';
+import Layout from '@/components/layout';
+import { totalCountState, totalPriceState } from '@/libs/recoilState';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import { useFetchShop } from '@/apis/shop';
-import { useFetchProducts } from '@/apis/product';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 
-export default function Shop() {
+const Shop = () => {
   const router = useRouter();
   const SHOP_ID = Number(router.query.id);
   const { shopData } = useFetchShop({ shopId: SHOP_ID });
@@ -109,4 +109,6 @@ export default function Shop() {
       </div>
     </Layout>
   );
-}
+};
+
+export default Shop;

@@ -1,14 +1,14 @@
-import Layout from '@/components/layout';
-import Image from 'next/image';
+import { useFetchShops } from '@/apis/shop';
 import Header from '@/components/HeaderBar';
 import NavBar from '@/components/NavBar';
+import Layout from '@/components/layout';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { useFetchShops } from '@/apis/shop';
+import Image from 'next/image';
 
-export default function Home() {
+const Home = () => {
   const { shopsData } = useFetchShops();
 
   return (
@@ -88,4 +88,6 @@ export default function Home() {
       <NavBar />
     </Layout>
   );
-}
+};
+
+export default Home;

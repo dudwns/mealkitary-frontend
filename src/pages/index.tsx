@@ -1,11 +1,15 @@
 import Link from 'next/link';
 
-export default function Home() {
+const Home = () => {
   return (
     <div className="flex justify-center items-center h-screen ">
       <Link href={'/reservation'}>
-        <button className="bg-blue-500 w-24 py-3 border border-black">예약하기</button>
+        <button className="bg-blue-500 w-24 py-3 border border-black">
+          예약하기
+        </button>
       </Link>
     </div>
   );
-}
+};
+
+export default Home;

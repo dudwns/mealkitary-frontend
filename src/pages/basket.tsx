@@ -1,31 +1,31 @@
-import Layout from '@/components/layout';
-import TabBar from '@/components/TabBar';
-import { reserveInfoState, totalPriceState } from '@/libs/recoilState';
-import Image from 'next/image';
-import { useRecoilValue } from 'recoil';
 import { useEffect, useRef, useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useAsync } from 'react-use';
+import { useFetchReservationTime } from '@/apis/reservation';
+import DatePickerComponent from '@/components/DatePickerComponent';
+import Header from '@/components/HeaderBar';
+import Spinner from '@/components/Spinner';
+import TabBar from '@/components/TabBar';
+import Layout from '@/components/layout';
+import addMenuData from '@/data/addMenu.json';
+import { reserveInfoState, totalPriceState } from '@/libs/recoilState';
+import { cls } from '@/libs/utils';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { List, ListItemButton } from '@mui/material';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import {
   PaymentWidgetInstance,
   loadPaymentWidget,
 } from '@tosspayments/payment-widget-sdk';
-import { useAsync } from 'react-use';
-import { cls } from '@/libs/utils';
-import 'react-datepicker/dist/react-datepicker.css';
-import DatePickerComponent from '@/components/DatePickerComponent';
-import { useRouter } from 'next/router';
-import Header from '@/components/HeaderBar';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { List, ListItemButton } from '@mui/material';
-import addMenuData from '@/data/addMenu.json';
 import axios from 'axios';
-import Spinner from '@/components/Spinner';
-import { useFetchReservationTime } from '@/apis/reservation';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 
 const clientKey = process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY;
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export default function Pocket() {
+const Basket = () => {
   let uuid = '';
   const router = useRouter();
   const shopId = router.query.shopId;
@@ -295,4 +295,6 @@ export default function Pocket() {
       />
     </Layout>
   );
-}
+};
+
+export default Basket;
