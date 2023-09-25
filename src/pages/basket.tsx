@@ -2,9 +2,12 @@ import Layout from '@/components/layout';
 import TabBar from '@/components/TabBar';
 import { reserveInfoState, totalPriceState } from '@/libs/recoilState';
 import Image from 'next/image';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useEffect, useRef, useState } from 'react';
-import { PaymentWidgetInstance, loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
+import {
+  PaymentWidgetInstance,
+  loadPaymentWidget,
+} from '@tosspayments/payment-widget-sdk';
 import { useAsync } from 'react-use';
 import { cls } from '@/libs/utils';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -15,10 +18,9 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { List, ListItemButton } from '@mui/material';
 import addMenuData from '@/data/addMenu.json';
-import { useQuery } from 'react-query';
-import { getReserveTime } from '@/libs/api';
 import axios from 'axios';
 import Spinner from '@/components/Spinner';
+import { useFetchReservationTime } from '@/apis/reservation';
 
 const clientKey = process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY;
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -27,35 +29,35 @@ export default function Pocket() {
   let uuid = '';
   const router = useRouter();
   const shopId = router.query.shopId;
-  const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
-  const [reserveInfo, setReserveInfo] = useRecoilState(reserveInfoState);
+
+  const totalPrice = useRecoilValue(totalPriceState);
+  const reserveInfo = useRecoilValue(reserveInfoState);
+
   const [pickup, setPickup] = useState(false);
   const [isPayment, setIsPayment] = useState(false);
   const [price, setPrice] = useState(totalPrice);
   const [addMenu, setAddMenu] = useState(addMenuData);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    isLoading: menuLoading,
-    data,
-    error,
-  } = useQuery('menuList', () => getReserveTime({ id: Number(shopId) }), {
-    refetchOnWindowFocus: false,
-    retry: 0,
-    onSuccess: ({ data }) => {},
-    onError: (e: Error) => {
-      console.error(e.message);
-    },
-    enabled: Boolean(shopId),
+  const { reservationTimeData } = useFetchReservationTime({
+    shopId: Number(shopId),
   });
 
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
-  const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance['renderPaymentMethods']> | null>(null);
+  const paymentMethodsWidgetRef = useRef<ReturnType<
+    PaymentWidgetInstance['renderPaymentMethods']
+  > | null>(null);
 
   useAsync(async () => {
-    const paymentWidget = await loadPaymentWidget(clientKey as string, '@@ANONYMOUS');
+    const paymentWidget = await loadPaymentWidget(
+      clientKey as string,
+      '@@ANONYMOUS',
+    );
 
-    const paymentMethodsWidget = paymentWidget.renderPaymentMethods('#payment-widget', price);
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+      '#payment-widget',
+      price,
+    );
 
     paymentWidgetRef.current = paymentWidget;
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
@@ -68,7 +70,10 @@ export default function Pocket() {
       return;
     }
 
-    paymentMethodsWidget.updateAmount(price, paymentMethodsWidget.UPDATE_REASON.COUPON);
+    paymentMethodsWidget.updateAmount(
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON,
+    );
   }, [price]);
 
   const rotationPickup = pickup ? '180deg' : '0deg';
@@ -108,14 +113,18 @@ export default function Pocket() {
   };
 
   const paymentHandler = async () => {
-    const serializedReserveInfo = encodeURIComponent(JSON.stringify(reserveInfo));
+    const serializedReserveInfo = encodeURIComponent(
+      JSON.stringify(reserveInfo),
+    );
     const paymentWidget = paymentWidgetRef.current;
     try {
       await paymentWidget?.requestPayment({
         orderId: uuid,
         orderName:
-          reserveInfo.length === 1 ? reserveInfo[0].name : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
-        customerName: '김영준',
+          reserveInfo.length === 1
+            ? reserveInfo[0].name
+            : `${reserveInfo[0].name} 외 ${reserveInfo.length - 1}건`,
+        customerName: '김영준', // @TODO: 로그인 유저 이름으로 변경
         customerEmail: 'dudwns99@gmail.com',
         successUrl: `${window.location.origin}/success`,
         failUrl: `${window.location.origin}/fail`,
@@ -133,13 +142,19 @@ export default function Pocket() {
         <div className="text-lg font-bold mt-4 mb-2">예약 한 메뉴</div>
         <List className="flex flex-col ">
           {reserveInfo?.map((menu, index) => (
-            <div key={index} className="border-b">
+            <div
+              key={index}
+              className="border-b">
               <li className="py-4">
                 <div className="flex">
                   <div>
                     {menu.image ? (
                       <div className="w-16 h-16 rounded-lg  mr-4 relative overflow-hidden">
-                        <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
+                        <Image
+                          src={menu.image}
+                          alt="메뉴 이미지"
+                          layout="fill"
+                        />
                       </div>
                     ) : (
                       <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3 flex justify-center items-center">
@@ -150,11 +165,15 @@ export default function Pocket() {
                   <div className="flex flex-col justify-between w-full">
                     <div className="flex items-center">
                       <div className="text-sm font-bold mr-2">{menu?.name}</div>
-                      <div className="text-xs text-gray-500">가격: {menu?.price.toLocaleString()}원</div>
+                      <div className="text-xs text-gray-500">
+                        가격: {menu?.price.toLocaleString()}원
+                      </div>
                     </div>
                     <div className="text-xs text-gray-500">제품 설명</div>
                     <div className="flex items-center justify-between">
-                      <div className="text-sm">{(menu?.count * menu?.price).toLocaleString()}원</div>
+                      <div className="text-sm">
+                        {(menu?.count * menu?.price).toLocaleString()}원
+                      </div>
                       <div className="text-sm">x{menu?.count}</div>
                     </div>
                   </div>
@@ -164,7 +183,9 @@ export default function Pocket() {
           ))}
         </List>
 
-        <ListItemButton className="mb-10 mt-4 text-center flex flex-col items-center " onClick={() => router.back()}>
+        <ListItemButton
+          className="mb-10 mt-4 text-center flex flex-col items-center "
+          onClick={() => router.back()}>
           <BottomNavigationAction
             className="animate-bounce text-blue-600 pointer-events-none"
             label="더 담으러 가기"
@@ -173,7 +194,11 @@ export default function Pocket() {
           <div>더 담으러가기</div>
         </ListItemButton>
 
-        <Spinner size={50} color={'#2F56E1'} loading={isLoading} />
+        <Spinner
+          size={50}
+          color={'#2F56E1'}
+          loading={isLoading}
+        />
 
         <div className="bg-white  mt-2 border-t  border-b border-b-gray-200">
           <div className="text-lg font-bold mt-4 mb-2">추가 옵션 선택</div>
@@ -181,8 +206,13 @@ export default function Pocket() {
             {addMenu?.options.map((data, index) => (
               <li key={index}>
                 <div className="flex relative w-full">
-                  <label className="w-full py-4" htmlFor={String(data?.id)}>
-                    <input className="mr-4 text-blue-600 focus:ring-0" type="checkbox" />
+                  <label
+                    className="w-full py-4"
+                    htmlFor={String(data?.id)}>
+                    <input
+                      className="mr-4 text-blue-600 focus:ring-0"
+                      type="checkbox"
+                    />
                     {data?.option}
                   </label>
                 </div>
@@ -193,7 +223,9 @@ export default function Pocket() {
 
         <div className="flex justify-between border-b py-6">
           <div className="text-lg font-bold">총 결제금액</div>
-          <div className="text-lg font-bold">{totalPrice.toLocaleString()}원</div>
+          <div className="text-lg font-bold">
+            {totalPrice.toLocaleString()}원
+          </div>
         </div>
 
         <div>
@@ -209,14 +241,19 @@ export default function Pocket() {
               onClick={() => {
                 setPickup((prev) => !prev);
               }}
-              style={pickupSvgStyle}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              style={pickupSvgStyle}>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
             </svg>
           </div>
           <div
-            className={cls('transition-all duration-500', pickup ? 'opacity-100 h-250' : 'opacity-0 h-0 duration-0')}
-          >
+            className={cls(
+              'transition-all duration-500',
+              pickup ? 'opacity-100 h-250' : 'opacity-0 h-0 duration-0',
+            )}>
             <DatePickerComponent />
           </div>
         </div>
@@ -232,9 +269,12 @@ export default function Pocket() {
               stroke="currentColor"
               className="w-6 h-6 text-blue-600 cursor-pointer"
               onClick={() => setIsPayment((prev) => !prev)}
-              style={paymentSvgStyle}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              style={paymentSvgStyle}>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
             </svg>
           </div>
 
@@ -242,14 +282,17 @@ export default function Pocket() {
             className={cls(
               'flex flex-col mb-5  transition-all duration-500',
               isPayment ? 'opacity-100 h-250 ' : 'opacity-0 h-0 duration-0',
-            )}
-          >
+            )}>
             <div id="payment-widget" />
           </div>
         </div>
       </div>
 
-      <TabBar text="결제하기" onClick={createReserve} disable={isLoading} />
+      <TabBar
+        text="결제하기"
+        onClick={createReserve}
+        disable={isLoading}
+      />
     </Layout>
   );
 }
