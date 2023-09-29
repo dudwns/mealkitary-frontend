@@ -13,23 +13,23 @@ const TabBar = ({
   disable = false,
 }: TabBarProps) => {
   return (
-    <div className="bg-white max-w-xl text-white border-t-4 border-gray-200  fixed bottom-0 w-full px-10 py-3 flex justify-between items-center">
+    <div className="fixed bottom-0 flex items-center justify-between w-full max-w-xl px-10 py-3 text-white bg-white border-t-4 border-gray-200">
       <button
-        className="bg-blue-600 w-full py-2 rounded-lg flex items-center justify-around hover:bg-blue-700 "
+        className="flex items-center justify-around w-full py-2 bg-blue-600 rounded-lg hover:bg-blue-700 "
         onClick={onClick}
         disabled={disable}>
         {contain ? (
           <>
-            <div className="bg-white text-black w-6 h-6 rounded-full text-sm flex justify-center items-center">
+            <div className="flex items-center justify-center w-6 h-6 text-sm text-black bg-white rounded-full">
               {count}
             </div>
-            <div className="text-xl flex items-center">{text}</div>
-            <div className="text-md flex items-center">
+            <div className="flex items-center text-xl">{text}</div>
+            <div className="flex items-center text-md">
               총 {price.toLocaleString()}원
             </div>
           </>
         ) : (
-          <div className="text-xl flex items-center">{text}</div>
+          <div className="flex items-center text-xl">{text}</div>
         )}
       </button>
     </div>

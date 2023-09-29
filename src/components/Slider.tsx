@@ -12,7 +12,7 @@ const Slider = ({ images }: SliderProps) => {
     <div className="w-full">
       <Swiper
         modules={[Pagination, Autoplay]}
-        className="banner z-10"
+        className="z-10 banner"
         spaceBetween={0}
         slidesPerView={1}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
@@ -28,14 +28,14 @@ const Slider = ({ images }: SliderProps) => {
           <SwiperSlide key={index}>
             <Image
               src={image}
-              className="w-full h-64 object-cover"
+              className="object-cover w-full h-64"
               width={500}
               height={1}
               alt="제품 이미지"
             />
           </SwiperSlide>
         ))}
-        <span className="pagination_fraction  absolute bottom-3 right-3 z-20 bg-black bg-opacity-50 text-white text-base px-4 font-medium rounded-full"></span>
+        <span className="absolute z-20 px-4 text-base font-medium text-white bg-black bg-opacity-50 rounded-full pagination_fraction bottom-3 right-3"></span>
       </Swiper>
     </div>
   );

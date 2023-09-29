@@ -22,12 +22,12 @@ const Shop = () => {
   return (
     <Layout>
       <div className="pb-20">
-        <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
+        <div className="relative flex items-center justify-center w-full h-64 text-2xl font-bold bg-gray-200">
           <button
-            className="absolute top-4 left-4 z-10"
+            className="absolute z-10 top-4 left-4"
             onClick={() => router.push('/reservation')}>
             <svg
-              className="w-6 h-6 text-white fixed z-10"
+              className="fixed z-10 w-6 h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -55,12 +55,12 @@ const Shop = () => {
             <div>상품 이미지가 없습니다.</div>
           )}
         </div>
-        <div className="bg-white px-6 py-4  border-b-2 border-gray-300 shadow-lg ">
-          <div className="text-2xl font-extrabold mb-4">{shopData?.title}</div>
-          <div className="flex justify-center items-center border-2 h-48 rounded-xl">{`${shopData?.title}입니다.`}</div>
+        <div className="px-6 py-4 bg-white border-b-2 border-gray-300 shadow-lg ">
+          <div className="mb-4 text-2xl font-extrabold">{shopData?.title}</div>
+          <div className="flex items-center justify-center h-48 border-2 rounded-xl">{`${shopData?.title}입니다.`}</div>
         </div>
-        <div className="bg-white px-6 mt-2 border-t-2 shadow-md">
-          <div className="text-lg font-bold mt-4 mb-2 ">인기 메뉴</div>
+        <div className="px-6 mt-2 bg-white border-t-2 shadow-md">
+          <div className="mt-4 mb-2 text-lg font-bold ">인기 메뉴</div>
           <List className="flex flex-col divide-y">
             {productsData?.map((product) => (
               <Link
@@ -69,7 +69,7 @@ const Shop = () => {
                 <ListItemButton className="py-4">
                   <div className="flex">
                     {product.image ? (
-                      <div className="w-16 h-16 rounded-lg mr-4 relative overflow-hidden border border-gray-300">
+                      <div className="relative w-16 h-16 mr-4 overflow-hidden border border-gray-300 rounded-lg">
                         <Image
                           src={product.image}
                           alt="메뉴 이미지"
@@ -77,7 +77,7 @@ const Shop = () => {
                         />
                       </div>
                     ) : (
-                      <div className="w-16 h-16 rounded-lg mr-4 relative overflow-hidden border border-gray-300 bg-gray-300 flex justify-center items-center">
+                      <div className="relative flex items-center justify-center w-16 h-16 mr-4 overflow-hidden bg-gray-300 border border-gray-300 rounded-lg">
                         <span className="text-xs text-white">이미지 없음</span>
                       </div>
                     )}

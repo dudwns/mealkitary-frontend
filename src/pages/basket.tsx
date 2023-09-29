@@ -136,8 +136,8 @@ const Basket = () => {
       <HeaderBar backBtn={true}>
         <div className="text-white">장바구니</div>
       </HeaderBar>
-      <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 pb-12 bg-white">
-        <div className="text-lg font-bold mt-4 mb-2">예약 한 메뉴</div>
+      <div className="flex flex-col px-6 pb-12 mt-16 bg-white border-t-2 shadow-md">
+        <div className="mt-4 mb-2 text-lg font-bold">예약 한 메뉴</div>
         <List className="flex flex-col ">
           {reserveInfo?.map((menu, index) => (
             <div
@@ -147,7 +147,7 @@ const Basket = () => {
                 <div className="flex">
                   <div>
                     {menu.image ? (
-                      <div className="w-16 h-16 rounded-lg  mr-4 relative overflow-hidden">
+                      <div className="relative w-16 h-16 mr-4 overflow-hidden rounded-lg">
                         <Image
                           src={menu.image}
                           alt="메뉴 이미지"
@@ -155,14 +155,14 @@ const Basket = () => {
                         />
                       </div>
                     ) : (
-                      <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3 flex justify-center items-center">
+                      <div className="flex items-center justify-center w-16 h-16 mr-3 bg-gray-300 rounded-lg">
                         <span className="text-xs text-white">이미지 없음</span>
                       </div>
                     )}
                   </div>
                   <div className="flex flex-col justify-between w-full">
                     <div className="flex items-center">
-                      <div className="text-sm font-bold mr-2">{menu?.name}</div>
+                      <div className="mr-2 text-sm font-bold">{menu?.name}</div>
                       <div className="text-xs text-gray-500">
                         가격: {menu?.price.toLocaleString()}원
                       </div>
@@ -182,10 +182,10 @@ const Basket = () => {
         </List>
 
         <ListItemButton
-          className="mb-10 mt-4 text-center flex flex-col items-center "
+          className="flex flex-col items-center mt-4 mb-10 text-center "
           onClick={() => router.back()}>
           <BottomNavigationAction
-            className="animate-bounce text-blue-600 pointer-events-none"
+            className="text-blue-600 pointer-events-none animate-bounce"
             label="더 담으러 가기"
             icon={<ArrowCircleDownIcon />}
           />
@@ -198,12 +198,12 @@ const Basket = () => {
           loading={isLoading}
         />
 
-        <div className="bg-white  mt-2 border-t  border-b border-b-gray-200">
-          <div className="text-lg font-bold mt-4 mb-2">추가 옵션 선택</div>
+        <div className="mt-2 bg-white border-t border-b border-b-gray-200">
+          <div className="mt-4 mb-2 text-lg font-bold">추가 옵션 선택</div>
           <ul className="divide-y">
             {addMenu?.options.map((data, index) => (
               <li key={index}>
-                <div className="flex relative w-full">
+                <div className="relative flex w-full">
                   <label
                     className="w-full py-4"
                     htmlFor={String(data?.id)}>
@@ -219,7 +219,7 @@ const Basket = () => {
           </ul>
         </div>
 
-        <div className="flex justify-between border-b py-6">
+        <div className="flex justify-between py-6 border-b">
           <div className="text-lg font-bold">총 결제금액</div>
           <div className="text-lg font-bold">
             {totalPrice.toLocaleString()}원
@@ -227,7 +227,7 @@ const Basket = () => {
         </div>
 
         <div>
-          <div className="flex justify-between items-center py-6">
+          <div className="flex items-center justify-between py-6">
             <div className="text-lg font-bold">픽업 날짜</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"

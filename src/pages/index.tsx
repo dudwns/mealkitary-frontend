@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 const Home = () => {
   return (
-    <div className="flex justify-center items-center h-screen ">
+    <div className="flex items-center justify-center h-screen ">
       <Link href={'/reservation'}>
-        <button className="bg-blue-500 w-24 py-3 border border-black">
+        <button className="w-24 py-3 bg-blue-500 border border-black">
           예약하기
         </button>
       </Link>

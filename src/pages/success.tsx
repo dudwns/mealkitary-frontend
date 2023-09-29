@@ -71,11 +71,11 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
         </div>
       </HeaderBar>
 
-      <div className="flex flex-col mt-16 border-t-2 shadow-md px-6 bg-white pb-20">
-        <div className="text-2xl font-bold mt-3 mb-2 flex justify-center">
+      <div className="flex flex-col px-6 pb-20 mt-16 bg-white border-t-2 shadow-md">
+        <div className="flex justify-center mt-3 mb-2 text-2xl font-bold">
           {message ? message.title : '예약 대기중...'}
         </div>
-        <div className="text-lg font-bold mt-3 mb-2">예약 한 메뉴</div>
+        <div className="mt-3 mb-2 text-lg font-bold">예약 한 메뉴</div>
         <ul className="flex flex-col ">
           {reservationData?.reservedProduct.map((menu, index) => (
             <li
@@ -84,17 +84,17 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
               <div className="flex">
                 <div>
                   {/* {menu.image ? (
-                    <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
+                    <div className="relative w-16 h-16 mr-3 overflow-hidden border border-gray-300 rounded-lg">
                       <Image src={menu.image} alt="메뉴 이미지" layout="fill" />
                     </div>
                   ) : ( */}
-                  <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3 flex justify-center items-center">
+                  <div className="flex items-center justify-center w-16 h-16 mr-3 bg-gray-300 rounded-lg">
                     <span className="text-xs text-white">이미지 없음</span>
                   </div>
                 </div>
                 <div className="flex flex-col justify-between w-full">
                   <div className="flex items-center">
-                    <div className="text-sm font-bold mr-2">{menu?.name}</div>
+                    <div className="mr-2 text-sm font-bold">{menu?.name}</div>
                     <div className="text-xs text-gray-500">
                       가격: {menu?.price.toLocaleString()}원
                     </div>
@@ -113,12 +113,12 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
         </ul>
 
         <div className="flex flex-col mt-3 bg-white border-b">
-          <div className="font-bold text-lg ">픽업 매장</div>
+          <div className="text-lg font-bold ">픽업 매장</div>
           <div className="flex py-4 ">
-            <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
+            <div className="relative w-16 h-16 mr-3 overflow-hidden border border-gray-300 rounded-lg">
               <div>
                 {shopList[0].image ? (
-                  <div className="w-16 h-16 rounded-lg  mr-3 relative overflow-hidden border border-gray-300">
+                  <div className="relative w-16 h-16 mr-3 overflow-hidden border border-gray-300 rounded-lg">
                     <Image
                       src={shopList[0].image}
                       alt="지점 이미지"
@@ -126,7 +126,7 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
                     />
                   </div>
                 ) : (
-                  <div className="w-16 h-16 bg-gray-300 rounded-lg mr-3"></div>
+                  <div className="w-16 h-16 mr-3 bg-gray-300 rounded-lg"></div>
                 )}
               </div>
             </div>
@@ -140,14 +140,14 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
         </div>
 
         <div className="flex flex-col mt-3 bg-white">
-          <div className="font-bold text-lg ">픽업 정보</div>
-          <div className="flex justify-between border-b py-2">
+          <div className="text-lg font-bold ">픽업 정보</div>
+          <div className="flex justify-between py-2 border-b">
             <div className="text-base">픽업 날짜</div>
             <div className="text-base text-gray-500">
               {reservationData?.reserveAt.slice(0, 10)}
             </div>
           </div>
-          <div className="flex justify-between border-b py-2 mb-2">
+          <div className="flex justify-between py-2 mb-2 border-b">
             <div className="text-base">픽업 시간</div>
             <div className="text-base text-gray-500">
               {reservationData?.reserveAt.slice(11, 16)}
@@ -155,7 +155,7 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
           </div>
 
           <div className="flex justify-around py-4">
-            <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
+            <div className="box-content flex flex-col items-center justify-center w-20 h-16 text-xs bg-gray-300 rounded-md cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -169,7 +169,7 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
               </svg>
               <span> 매장 문의</span>
             </div>
-            <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
+            <div className="box-content flex flex-col items-center justify-center w-20 h-16 text-xs bg-gray-300 rounded-md cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -188,7 +188,7 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
               </svg>
               <span>지도 보기</span>
             </div>
-            <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
+            <div className="box-content flex flex-col items-center justify-center w-20 h-16 text-xs bg-gray-300 rounded-md cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -202,7 +202,7 @@ const SuccessPage = ({ payment }: SuccessPageProps) => {
               </svg>
               <span>주소 복사</span>
             </div>
-            <div className="bg-gray-300 rounded-md text-xs flex flex-col justify-center items-center w-20 h-16 box-content cursor-pointer">
+            <div className="box-content flex flex-col items-center justify-center w-20 h-16 text-xs bg-gray-300 rounded-md cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

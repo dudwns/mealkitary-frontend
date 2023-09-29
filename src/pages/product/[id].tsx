@@ -34,12 +34,12 @@ const Product = () => {
   return (
     <Layout>
       <div className="pb-20">
-        <div className="flex justify-center items-center w-full h-64 bg-gray-200 font-bold text-2xl relative">
+        <div className="relative flex items-center justify-center w-full h-64 text-2xl font-bold bg-gray-200">
           <button
-            className="absolute top-4 left-4 z-10"
+            className="absolute z-10 top-4 left-4"
             onClick={() => router.back()}>
             <svg
-              className="w-6 h-6 text-white fixed z-10"
+              className="fixed z-10 w-6 h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -52,7 +52,7 @@ const Product = () => {
             </svg>
           </button>
           {'/images/buda.PNG' ? (
-            <div className="w-full h-full relative ">
+            <div className="relative w-full h-full ">
               <Image
                 src={'/images/buda.PNG'} // @TODO: productData.images로 변경
                 layout="fill"
@@ -63,15 +63,15 @@ const Product = () => {
             <div>상품 이미지가 없습니다.</div>
           )}
         </div>
-        <div className="bg-white px-6 py-4  border-b-2 border-gray-300 shadow-md">
-          <div className="text-2xl font-extrabold mb-3">
+        <div className="px-6 py-4 bg-white border-b-2 border-gray-300 shadow-md">
+          <div className="mb-3 text-2xl font-extrabold">
             {productData?.name}
           </div>
           <div>간단하게 조리해서 먹을 수 있는 {productData?.name}!</div>
         </div>
-        <div className="bg-white px-6 py-4 mt-2 border-t-2 shadow-md flex items-center justify-between">
-          <div className="text-2xl font-extrabold flex items-center">수량</div>
-          <div className="flex space-x-6 border border-gray-200 px-4 py-1">
+        <div className="flex items-center justify-between px-6 py-4 mt-2 bg-white border-t-2 shadow-md">
+          <div className="flex items-center text-2xl font-extrabold">수량</div>
+          <div className="flex px-4 py-1 space-x-6 border border-gray-200">
             <button
               onClick={() => {
                 setMenuCount((prev) => (prev > 1 ? prev - 1 : 1));

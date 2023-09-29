@@ -16,8 +16,8 @@ const Spinner = ({
   };
   return loading ? (
     <>
-      <div className="  fixed  bg-black left-0 right-0 top-0 bottom-0 opacity-80 z-30" />
-      <div className="inline-block align-middle fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40">
+      <div className="fixed top-0 bottom-0 left-0 right-0 z-30 bg-black  opacity-80" />
+      <div className="fixed z-40 inline-block align-middle transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <svg
           viewBox="0 0 38 38"
           xmlns="http://www.w3.org/2000/svg"

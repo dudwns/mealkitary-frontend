@@ -20,16 +20,16 @@ const Home = () => {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-4 h-4 absolute left-2 text-gray-400 ">
+            className="absolute w-4 h-4 text-gray-400 left-2 ">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-          <form className="w-full flex justify-center items-center">
+          <form className="flex items-center justify-center w-full">
             <input
-              className="w-full h-6 bg-white rounded-xl p-6 text-sm pl-8 focus:outline-none"
+              className="w-full h-6 p-6 pl-8 text-sm bg-white rounded-xl focus:outline-none"
               placeholder="존슨탕? 춘천닭갈비?"
               onFocus={(event) => (event.target.placeholder = '')}
               onBlur={(event) =>
@@ -39,8 +39,8 @@ const Home = () => {
         </div>
       </HeaderBar>
       <div className="flex flex-col mt-16 border-t-2 h-[64rem] shadow-md bg-white">
-        <div className="text-lg font-bold mt-4 ml-8">예약</div>
-        <List className="flex flex-col  divide-y ">
+        <div className="mt-4 ml-8 text-lg font-bold">예약</div>
+        <List className="flex flex-col divide-y ">
           {shopsData?.map((shop) => (
             <div key={shop.id}>
               <ListItemButton
@@ -49,7 +49,7 @@ const Home = () => {
                 <ListItem className="py-2">
                   <div className="flex">
                     {shop.image ? (
-                      <div className="w-14 h-14 relative rounded-lg mr-4 overflow-hidden border border-gray-300">
+                      <div className="relative mr-4 overflow-hidden border border-gray-300 rounded-lg w-14 h-14">
                         <Image
                           src={shop.image}
                           alt="지점 이미지"
@@ -57,17 +57,17 @@ const Home = () => {
                         />
                       </div>
                     ) : (
-                      <div className="w-14 h-14 bg-gray-300 rounded-lg mr-2 flex justify-center items-center">
+                      <div className="flex items-center justify-center mr-2 bg-gray-300 rounded-lg w-14 h-14">
                         <span className="text-xs text-white">이미지 없음</span>
                       </div>
                     )}
                     <div className="flex flex-col ">
-                      <ListItemText className="text-sm mb-2 font-bold">
+                      <ListItemText className="mb-2 text-sm font-bold">
                         {shop.title}
                       </ListItemText>
                       <div className="flex items-center">
                         <svg
-                          className="h-4 w-4 cursor-pointer text-yellow-300"
+                          className="w-4 h-4 text-yellow-300 cursor-pointer"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
                           fill="currentColor"

@@ -10,11 +10,11 @@ const HeaderBar = ({ backBtn, title, children }: HeaderBarProps) => {
   const router = useRouter();
   return (
     <>
-      <div className="font-bold text-2xl bg-blue-600 w-full h-16 max-w-xl fixed left-0 right-0 mx-auto top-0 text-gray-800 flex justify-center items-center z-20 border-b-2 border-gray-300 shadow-md">
+      <div className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center w-full h-16 max-w-xl mx-auto text-2xl font-bold text-gray-800 bg-blue-600 border-b-2 border-gray-300 shadow-md">
         {children}
         {backBtn ? (
           <button
-            className="absolute left-4 z-30"
+            className="absolute z-30 left-4"
             onClick={() => router.back()}>
             <svg
               className="w-6 h-6 text-white"

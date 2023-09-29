@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <BottomNavigation
       showLabels
-      className=" bg-white border-t-2 border-blue-600 rounded-tr-3xl rounded-tl-3xl w-full max-w-xl fixed left-0 right-0 mx-auto bottom-0 flex justify-center items-center z-20"
+      className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center w-full max-w-xl mx-auto bg-white border-t-2 border-blue-600  rounded-tr-3xl rounded-tl-3xl"
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
