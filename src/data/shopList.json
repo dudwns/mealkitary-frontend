@@ -2,61 +2,61 @@
   {
     "id": 1,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 구로점",
+    "title": "집밥뚝딱 구로점",
     "score": 4.8
   },
   {
     "id": 2,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 개봉점",
+    "title": "집밥뚝딱 개봉점",
     "score": 4.5
   },
   {
     "id": 3,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 안양점",
+    "title": "집밥뚝딱 안양점",
     "score": 4.6
   },
   {
     "id": 4,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 강남점",
+    "title": "집밥뚝딱 강남점",
     "score": 4.7
   },
   {
     "id": 5,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 용산점",
+    "title": "집밥뚝딱 용산점",
     "score": 4.2
   },
   {
     "id": 6,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 홍대점",
+    "title": "집밥뚝딱 홍대점",
     "score": 4.6
   },
   {
     "id": 7,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 남양주점",
+    "title": "집밥뚝딱 남양주점",
     "score": 4.5
   },
   {
     "id": 8,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 광명점",
+    "title": "집밥뚝딱 광명점",
     "score": 4.6
   },
   {
     "id": 9,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 철산점",
+    "title": "집밥뚝딱 철산점",
     "score": 4.7
   },
   {
     "id": 10,
     "image": "/images/jipbob.PNG",
-    "name": "집밥뚝딱 여의도점",
+    "title": "집밥뚝딱 여의도점",
     "score": 4.4
   }
 ]

@@ -1,35 +1,40 @@
-import { atom } from "recoil";
+import { MessageType } from '@/components/Message';
+import { atom } from 'recoil';
 
-interface ReserveProp {
-  id: number;
+export interface ReserveProps {
+  productId: number;
   name: string;
   price: number;
-  totalPrice: number;
   count: number;
-  image: string;
+  image?: string;
 }
 
 export const totalPriceState = atom({
-  key: "totalPriceState",
+  key: 'totalPriceState',
   default: 0,
 });
 
 export const totalCountState = atom({
-  key: "totalCountState",
+  key: 'totalCountState',
   default: 0,
 });
 
-export const reserveInfoState = atom<ReserveProp[]>({
-  key: "reserveInfoState",
+export const reserveInfoState = atom<ReserveProps[]>({
+  key: 'reserveInfoState',
   default: [],
 });
 
 export const pickupDateState = atom<Date | null>({
-  key: "pickupDateState",
+  key: 'pickupDateState',
   default: null,
 });
 
 export const pickupTimeState = atom<Date>({
-  key: "pickupTimeState",
+  key: 'pickupTimeState',
+  default: undefined,
+});
+
+export const messageState = atom<MessageType>({
+  key: 'messageState',
   default: undefined,
 });
